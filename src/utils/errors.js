@@ -113,6 +113,7 @@ module.exports = {
   NotFoundError,
   BadRequestError,
   UnauthorizedError,
+  ForbiddenError,
   InternalError,
   ConflictError,
   notFoundHandler,
