@@ -10,7 +10,10 @@
     "test:coverage:show": "open coverage/lcov-report/index.html",
     "lint": "eslint src/",
     "infra:start": "docker-compose up -d",
-    "infra:stop": "docker-compose down"
+    "infra:stop": "docker-compose down",
+    "migrate:make": "knex migrate:make --knexfile ./src/database/knexfile.js",
+    "db:migrate": "knex migrate:latest --knexfile ./src/database/knexfile.js",
+    "db:rollback": "knex migrate:rollback --knexfile ./src/database/knexfile.js"
   },
   "engines": {
     "node": "v10.15.0"

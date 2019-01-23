@@ -1,12 +1,17 @@
 /* eslint-disable global-require */
 'use strict'
 
+const path = require('path')
+
 const env = process.env.NODE_ENV || 'local'
 
 // Load process.env variables from .env file (when developing locally)
 // !! Do not move these lines, config variables have to be loaded before default config is loaded.
 if (env === 'local') {
-  require('dotenv').config({ silent: false })
+  require('dotenv').config({
+    silent: false,
+    path: path.resolve(__dirname, '../../', '.env'),
+  })
 }
 
 const R = require('ramda')

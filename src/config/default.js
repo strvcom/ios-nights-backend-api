@@ -16,8 +16,8 @@ module.exports = env => ({
     client: 'pg',
     connection: process.env.DATABASE_URL,
     pool: {
-      min: process.env.DATABASE_POOL_MIN || 0,
-      max: process.env.DATABASE_POOL_MAX || 5,
+      min: parseInt(process.env.DATABASE_POOL_MIN) || 0,
+      max: parseInt(process.env.DATABASE_POOL_MAX) || 5,
     },
   },
   logger: {
