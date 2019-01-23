@@ -2,6 +2,7 @@
 
 const Router = require('koa-router')
 const config = require('../config')
+const lectureController = require('../controllers/lecture')
 
 const router = new Router()
 
@@ -11,5 +12,7 @@ router.get('/', ctx => {
     version: config.app.version,
   }
 })
+
+router.get('/lectures', lectureController.list)
 
 module.exports = router.routes()

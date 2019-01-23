@@ -6,6 +6,8 @@ module.exports = {
     table.string('name').notNullable()
     table.text('description').notNullable()
     table.text('assignment').notNullable()
+    table.string('preview_picture')
+    table.string('detail_picture')
   }),
   down: knex => knex.schema.dropTableIfExists('lectures'),
 }
