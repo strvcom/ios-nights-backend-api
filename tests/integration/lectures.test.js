@@ -19,10 +19,16 @@ describe('GET /lectures', () => {
     expect(body.page).toEqual(1)
   })
 
-  // test('It should return detail of section', async () => {
-  //   const res = await request(app)
-  //     .get('/lectures/1')
-  //     .expect(200)
-  //   expect(res).toMatchObject(data.lectureDetail)
-  // })
+  test('It should return detail of section', async () => {
+    const { body } = await request(app)
+      .get('/lectures/1')
+      .expect(200)
+    expect(body).toMatchObject(data.lectureDetail)
+  })
+
+  test('It should return 404 when lecture doesn\'t exist', async () => {
+    await request(app)
+      .get('/lectures/123')
+      .expect(404)
+  })
 })

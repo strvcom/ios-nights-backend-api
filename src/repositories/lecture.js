@@ -7,6 +7,12 @@ const paginate = (page, perPage) => Lecture
   .pick(['id', 'name', 'description', 'previewPicture'])
   .page(page - 1, perPage)
 
+const getById = id => Lecture
+  .query()
+  .where('id', id)
+  .first()
+
 module.exports = {
   paginate,
+  getById,
 }

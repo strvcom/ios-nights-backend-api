@@ -14,5 +14,6 @@ router.get('/', ctx => {
 })
 
 router.get('/lectures', lectureController.list)
+router.get('/lectures/:id', lectureController.detail)
 
 module.exports = router.routes()

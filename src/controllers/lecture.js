@@ -7,6 +7,12 @@ const list = async ctx => {
   ctx.body = await lectureOperations.getList(page)
 }
 
+const detail = async ctx => {
+  const lectureId = parseInt(ctx.params.id)
+  ctx.body = await lectureOperations.getDetail(lectureId)
+}
+
 module.exports = {
   list,
+  detail,
 }
