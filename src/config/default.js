@@ -13,10 +13,11 @@ module.exports = env => ({
     port: process.env.PORT || 3000,
   },
   database: {
-    url: process.env.DB_URL,
-    options: {
-      autoIndex: false,
-      useNewUrlParser: true,
+    client: 'pg',
+    connection: process.env.DATABASE_URL,
+    pool: {
+      min: process.env.DATABASE_POOL_MIN || 0,
+      max: process.env.DATABASE_POOL_MAX || 5,
     },
   },
   logger: {

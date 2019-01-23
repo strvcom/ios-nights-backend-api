@@ -2,14 +2,15 @@
   "name": "ios-nights-api",
   "version": "1.0.0",
   "description": "",
-  "main": "src/app.js",
+  "main": "src/index.js",
   "scripts": {
-    "dev": "nodemon src/app.js | pino-pretty",
+    "dev": "nodemon src/index.js | pino-pretty",
     "test": "NODE_ENV=test jest",
     "test:coverage": "yarn test --coverage",
     "test:coverage:show": "open coverage/lcov-report/index.html",
     "lint": "eslint src/",
-    "infra:start": "docker-compose up -d"
+    "infra:start": "docker-compose up -d",
+    "infra:stop": "docker-compose down"
   },
   "engines": {
     "node": "v10.15.0"
@@ -42,11 +43,14 @@
     "joi": "^14.3.1",
     "jsonwebtoken": "^8.4.0",
     "kcors": "^2.2.2",
+    "knex": "^0.16.3",
     "koa": "^2.6.2",
     "koa-body": "^4.0.6",
     "koa-compress": "^3.0.0",
     "koa-helmet": "^4.0.0",
     "koa-router": "^7.4.0",
+    "objection": "^1.5.3",
+    "pg": "^7.8.0",
     "pino": "^5.10.8",
     "ramda": "^0.26.1"
   },

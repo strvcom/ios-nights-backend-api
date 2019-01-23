@@ -1,0 +1,10 @@
+version: '3.3'
+services:
+  database:
+    image: sameersbn/postgresql:latest
+    container_name: ios-nights-api-db
+    environment:
+      - DB_NAME=ios-nights-api-local,ios-nights-api-test
+      - PG_TRUST_LOCALNET=true
+    ports:
+      - "5432:5432"
