@@ -11,12 +11,13 @@ test('Hash and compare password', async () => {
 
 test('Generate and verify access token', async () => {
   const user = {
+    id: 3,
     name: 'John',
     surname: 'Doe',
     age: 39,
   }
   const { accessToken } = await security.generateAccessToken(user)
-  expect(await security.verifyAccessToken(accessToken)).toEqual(user)
+  expect(await security.verifyAccessToken(accessToken)).toEqual(user.id)
 })
 
 test('Parse access token from HTTP header', () => {

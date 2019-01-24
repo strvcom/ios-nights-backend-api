@@ -30,7 +30,7 @@ const verifyPassword = (password, hashedPassword) => bcrypt.compare(password, ha
  */
 const generateAccessToken = user => {
   const accessToken = jwt.sign({
-    data: user,
+    userId: user.id,
   }, config.security.secret, config.security.createOptions)
   return {
     accessToken,
@@ -40,7 +40,7 @@ const generateAccessToken = user => {
 /**
  * Verifies JWT token
  * @param {string} accessToken Access token provided by user
- * @returns {Promise}
+ * @returns {Promise} userId
  * @throws {UnauthorizedError}
  */
 const verifyAccessToken = async accessToken => {
@@ -51,7 +51,7 @@ const verifyAccessToken = async accessToken => {
       config.security.secret,
       config.security.verifyOptions,
     )
-    return result.data
+    return result.userId
   } catch (err) {
     throw new UnauthorizedError({}, err.message)
   }
