@@ -108,6 +108,10 @@ const formatResponseError = (err, env) => {
   return responseError
 }
 
+const dbErrors = {
+  DUPLICATE_ERROR: '23505',
+}
+
 module.exports = {
   ApiError,
   NotFoundError,
@@ -118,4 +122,5 @@ module.exports = {
   ConflictError,
   notFoundHandler,
   formatResponseError,
+  dbErrors,
 }
