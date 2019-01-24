@@ -25,5 +25,6 @@ router.get('/lectures/:id', authenticated, lectureController.detail)
 
 // Users
 router.post('/register', userController.register)
+router.get('/me', authenticated, userController.user)
 
 module.exports = router.routes()

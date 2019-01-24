@@ -11,6 +11,11 @@ const register = async ctx => {
   ctx.status = 201
 }
 
+const user = ctx => {
+  ctx.body = ctx.user
+}
+
 module.exports = {
   register,
+  user,
 }
