@@ -40,7 +40,6 @@ class User extends Model {
         relation: Model.ManyToManyRelation,
         modelClass: Lecture,
         join: {
-          extra: ['assignment_done'],
           from: 'users.id',
           through: {
             from: 'user_lectures.user_id',

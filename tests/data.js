@@ -27,12 +27,16 @@ const lecturesList = [
     name: 'Swift I',
     description: '- Basic data types, collection types - Struct, class, enum - Functions, closures - Access control - References, ARC - Operators, common methods - Extenstions, protocols, delegates',
     previewPicture: 'https://picsum.photos/200/300?image=0',
+    assignmentDone: false,
+    attended: false,
   },
   {
     id: 2,
     name: 'Xcode',
     description: '- Brief Git intro - Targets, configurations - Schemes - Build process - Certificates - Dependency Management - Project structure - MVC',
     previewPicture: 'https://picsum.photos/200/300?image=3',
+    assignmentDone: false,
+    attended: false,
   },
 ]
 
