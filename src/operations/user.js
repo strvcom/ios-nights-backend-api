@@ -16,11 +16,13 @@ const register = async input => {
   try {
     const user = await userRepository.createUser(userData)
     return {
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      picture: user.picture,
-      token: security.generateAccessToken(user),
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        picture: user.picture,
+      },
+      tokenInfo: security.generateAccessToken(user),
     }
   } catch (err) {
     // check if duplicate
