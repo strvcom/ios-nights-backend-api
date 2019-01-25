@@ -48,10 +48,34 @@ const updateAssignmentStatus = async (lectureId, done, userId) => {
   return done
 }
 
+const getTotalLectures = async () => {
+  const { rows } = await knex.raw(`
+    SELECT COUNT(*) count FROM lectures
+   `)
+  return rows[0].count
+}
+
+const getAttendedLecturesCount = async user => {
+  const { rowCount } = await knex.raw(`
+    SELECT 1 FROM user_lectures WHERE user_id = ?
+   `, [user.id])
+  return rowCount
+}
+
+const getAssignmentsCount = async user => {
+  const { rowCount } = await knex.raw(`
+    SELECT 1 FROM user_lectures WHERE user_id = ? AND assignment_done = true
+   `, [user.id])
+  return rowCount
+}
+
 module.exports = {
   paginate,
   getById,
   getUserLectures,
   updateAttendance,
   updateAssignmentStatus,
+  getTotalLectures,
+  getAttendedLecturesCount,
+  getAssignmentsCount,
 }

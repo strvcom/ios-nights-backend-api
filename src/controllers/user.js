@@ -11,8 +11,11 @@ const register = async ctx => {
   ctx.status = 201
 }
 
-const user = ctx => {
-  ctx.body = ctx.user
+const user = async ctx => {
+  ctx.body = {
+    ...ctx.user,
+    lecturesStatistics: await operations.loadUserLecturesStatistics(ctx.user),
+  }
 }
 
 module.exports = {

@@ -1,6 +1,7 @@
 'use strict'
 
 const userRepository = require('../repositories/user')
+const lectureRepository = require('../repositories/lecture')
 const errors = require('../utils/errors')
 const security = require('../utils/security')
 const { dbErrors } = require('../utils/errors')
@@ -36,6 +37,20 @@ const register = async input => {
   }
 }
 
+const loadUserLecturesStatistics = async user => {
+  const data = await Promise.all([
+    lectureRepository.getTotalLectures(),
+    lectureRepository.getAttendedLecturesCount(user),
+    lectureRepository.getAssignmentsCount(user),
+  ])
+  return {
+    total: data[0],
+    attended: data[1],
+    assignmentsDone: data[2],
+  }
+}
+
 module.exports = {
   register,
+  loadUserLecturesStatistics,
 }
