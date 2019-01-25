@@ -39,7 +39,33 @@ const getDetail = async (user, id) => {
   return (await addUserToLectures(user, [lecture]))[0]
 }
 
+const updateAttendance = async (lectureId, attends, user) => {
+  const lecture = await lectureRepository.getById(lectureId)
+  if (!lecture) {
+    throw new errors.NotFoundError({ lectureId }, 'Lecture not found')
+  }
+  return {
+    attends: await lectureRepository.updateAttendance(lectureId, attends, user.id),
+  }
+}
+
+const updateAssignmentStatus = async (lectureId, done, user) => {
+  const lecture = await lectureRepository.getById(lectureId)
+  if (!lecture) {
+    throw new errors.NotFoundError({ lectureId }, 'Lecture not found')
+  }
+  const status = await lectureRepository.updateAssignmentStatus(lectureId, done, user.id)
+  if (status === null) {
+    throw new errors.BadRequestError('User doesn\'t attend this lecture')
+  }
+  return {
+    done: status,
+  }
+}
+
 module.exports = {
   getList,
   getDetail,
+  updateAttendance,
+  updateAssignmentStatus,
 }

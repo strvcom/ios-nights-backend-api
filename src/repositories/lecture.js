@@ -22,8 +22,36 @@ const getUserLectures = async (user, lecturesIds) => {
   return R.indexBy(R.prop('lecture_id'), rows)
 }
 
+const updateAttendance = async (lectureId, attends, userId) => {
+  if (attends) {
+    await knex.raw(`
+    INSERT INTO user_lectures VALUES (?,?) ON CONFLICT DO NOTHING
+  `, [userId, lectureId])
+  } else {
+    await knex.raw(`
+    DELETE FROM user_lectures WHERE user_id = ? AND lecture_id = ?
+  `, [userId, lectureId])
+  }
+  return attends
+}
+
+const updateAssignmentStatus = async (lectureId, done, userId) => {
+  const { rowCount } = await knex.raw(`
+    SELECT 1 FROM user_lectures WHERE lecture_id = ? AND user_id = ?
+    `, [lectureId, userId])
+  if (!rowCount) {
+    return null
+  }
+  await knex.raw(`
+    UPDATE user_lectures SET assignment_done = ? WHERE lecture_id = ? AND user_id = ?
+  `, [done, lectureId, userId])
+  return done
+}
+
 module.exports = {
   paginate,
   getById,
   getUserLectures,
+  updateAttendance,
+  updateAssignmentStatus,
 }

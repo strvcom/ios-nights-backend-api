@@ -9,6 +9,18 @@ class User extends Model {
     return 'users'
   }
 
+  static get attendanceValidationRules() {
+    return Joi.object().keys({
+      attends: Joi.boolean().required(),
+    })
+  }
+
+  static get assignmentValidationRules() {
+    return Joi.object().keys({
+      done: Joi.boolean().required(),
+    })
+  }
+
   static get validationRules() {
     return Joi.object().keys({
       name: Joi.string()

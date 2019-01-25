@@ -11,6 +11,7 @@ module.exports = {
       .references('id')
       .inTable('lectures')
     table.boolean('assignment_done').notNullable().defaultTo(false)
+    table.primary(['user_id', 'lecture_id'])
   }),
   down: knex => knex.schema.dropTableIfExists('user_lectures'),
 }
