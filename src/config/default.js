@@ -38,4 +38,11 @@ module.exports = env => ({
       issuer: `com.strv.ios-nights-api.${env}`,
     },
   },
+  aws: {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    region: process.env.AWS_REGION,
+    bucket: 'strv-ios-nights2019',
+    apiVersion: '2012-10-17',
+  },
 })

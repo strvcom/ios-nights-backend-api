@@ -41,6 +41,7 @@
     "supertest-koa-agent": "^0.3.0"
   },
   "dependencies": {
+    "aws-sdk": "^2.394.0",
     "bcrypt": "^3.0.3",
     "dotenv": "^6.2.0",
     "joi": "^14.3.1",
@@ -55,7 +56,8 @@
     "objection": "^1.5.3",
     "pg": "^7.8.0",
     "pino": "^5.10.8",
-    "ramda": "^0.26.1"
+    "ramda": "^0.26.1",
+    "uuid": "^3.3.2"
   },
   "husky": {
     "hooks": {

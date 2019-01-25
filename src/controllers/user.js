@@ -1,13 +1,19 @@
 'use strict'
 
+const R = require('ramda')
 const operations = require('../operations/user')
 const { validate } = require('../utils/validation')
 const User = require('../database/models/user')
 
 const register = async ctx => {
-  validate(ctx.request.body, User.validationRules)
-  // TODO: validate and handle image upload
-  ctx.body = await operations.register(ctx.request.body)
+  const input = {
+    ...ctx.request.body,
+  }
+  if (R.prop('picture', ctx.request.files)) {
+    input.picture = ctx.request.files.picture
+  }
+  validate(input, User.validationRules)
+  ctx.body = await operations.register(input)
   ctx.status = 201
 }
 

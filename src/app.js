@@ -5,6 +5,7 @@ const koaCors = require('kcors')
 const koaBody = require('koa-body')
 const koaHelmet = require('koa-helmet')
 const koaCompress = require('koa-compress')
+const aws = require('aws-sdk')
 const config = require('./config')
 const logger = require('./utils/logger')
 const routes = require('./routes')
@@ -22,7 +23,7 @@ app
   .use(koaErrors())
   .use(koaCors())
   .use(koaHelmet())
-  .use(koaBody())
+  .use(koaBody({ multipart: true }))
   .use(routes)
   .use(notFoundHandler())
 
@@ -34,6 +35,13 @@ app.start = async () => {
     const server = app.listen(config.server.port, () => resolve(server))
   })
   logger.info(`Server listening on port ${config.server.port}`)
+
+  // configure AWS
+  aws.config.update({
+    secretAccessKey: config.aws.secretAccessKey,
+    accessKeyId: config.aws.accessKeyId,
+    region: config.aws.region,
+  })
 }
 
 app.stop = async () => {
