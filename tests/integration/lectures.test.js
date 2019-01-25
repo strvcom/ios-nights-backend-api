@@ -42,7 +42,9 @@ describe('GET /lectures', () => {
     expect(body.total).toEqual(2)
     expect(body.page).toEqual(1)
   })
+})
 
+describe('GET /lectures/:id', () => {
   test('It should return detail of section', async () => {
     const { body } = await request(app)
       .get('/lectures/1')
@@ -56,5 +58,42 @@ describe('GET /lectures', () => {
       .get('/lectures/123')
       .set('Authorization', userToken)
       .expect(404)
+  })
+})
+
+describe('PATCH /lectures/:id/attendance', () => {
+  test('It should update user\'s lecture attendance', async () => {
+    const { body } = await request(app)
+      .patch('/lectures/1/attendance')
+      .set('Authorization', userToken)
+      .send({
+        attends: true,
+      })
+      .expect(200)
+    expect(body).toMatchObject({
+      attends: true,
+    })
+  })
+})
+
+describe('PATCH /lectures/:id/assignment', () => {
+  test('It should update user\'s lecture assignment status', async () => {
+    await request(app)
+      .patch('/lectures/2/attendance')
+      .set('Authorization', userToken)
+      .send({
+        attends: true,
+      })
+      .expect(200)
+    const { body } = await request(app)
+      .patch('/lectures/2/assignment')
+      .set('Authorization', userToken)
+      .send({
+        done: true,
+      })
+      .expect(200)
+    expect(body).toMatchObject({
+      done: true,
+    })
   })
 })
