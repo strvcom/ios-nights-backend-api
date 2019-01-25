@@ -42,8 +42,29 @@ const lecturesList = [
 
 const lectureDetail = { ...lecturesList[0] }
 
+const userData = {
+  id: 1,
+  name: 'John Doe',
+  password: '$2b$10$LTLMdAPm2HHpm0ctBJu48OmVhWrjpB1Srn.sehbhAQoey7bUQZBtG',
+  email: 'john.doe@example.org',
+}
+
+const duplicateUserData = {
+  name: 'John Doe',
+  password: 'passw0rd',
+  email: 'john.doe@example.org',
+}
+
+const loginData = {
+  email: 'john.doe@example.org',
+  password: 'passw0rd',
+}
+
 module.exports = {
   lecturesDB,
   lecturesList,
   lectureDetail,
+  userData,
+  loginData,
+  duplicateUserData,
 }

@@ -2,26 +2,8 @@
 
 const request = require('supertest-koa-agent')
 const app = require('../../src/app')
-const User = require('../../src/database/models/user')
 const security = require('../../src/utils/security')
-const helpers = require('../helpers')
-
-const userData = {
-  id: 1,
-  name: 'John Doe',
-  password: '$2b$10$LTLMdAPm2HHpm0ctBJu48OmVhWrjpB1Srn.sehbhAQoey7bUQZBtG',
-  email: 'john.doe@example.org',
-}
-
-const loginData = {
-  email: 'john.doe@example.org',
-  password: 'passw0rd',
-}
-
-beforeAll(async () => {
-  await helpers.resetDb()
-  await User.query().insert(userData)
-})
+const { loginData, userData } = require('../data')
 
 // test authentication - login, access token
 describe('POST /login', () => {
@@ -46,7 +28,7 @@ describe('POST /login', () => {
     await request(app)
       .post('/login')
       .send({
-        email: userData.email,
+        email: loginData.email,
         password: 'wrong password',
       })
       .expect(401)
