@@ -15,6 +15,9 @@ const getById = id => Lecture
   .first()
 
 const getUserLectures = async (user, lecturesIds) => {
+  if (lecturesIds.length === 0) {
+    return []
+  }
   const { rows } = await knex.raw(`
   SELECT lecture_id, assignment_done AS done
   FROM user_lectures
