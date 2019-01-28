@@ -1,4 +1,7 @@
 ## iOS nights API
+
+[![Build Status](https://travis-ci.com/strvcom/ios-nights-backend-api.svg?token=s4QdpQx7n36q53UZ51Mk&branch=dev)](https://travis-ci.com/strvcom/ios-nights-backend-api)
+
 Api service for iOS nights workshop
 
 ### Endpoints
