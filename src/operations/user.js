@@ -9,7 +9,7 @@ const security = require('../utils/security')
 const { dbErrors } = require('../utils/errors')
 const storage = require('../services/storage')
 
-const getProfilePictureName = picture => `users/${uuid()}${path.extname(picture.name)}`
+const getPictureKey = picture => `users/${uuid()}${path.extname(picture.name)}`
 
 const register = async input => {
   const userData = {
@@ -19,16 +19,18 @@ const register = async input => {
   }
   try {
     const user = await userRepository.createUser(userData)
+    const uploadedPicture = await storage.uploadFile(input.picture, getPictureKey(input.picture))
     const newUserData = {
       user: {
         id: user.id,
         name: user.name,
         email: user.email,
-        picture: await storage.uploadFile(input.picture, getProfilePictureName(input.picture)),
+        picture: uploadedPicture.url,
+        pictureKey: uploadedPicture.key,
       },
       tokenInfo: security.generateAccessToken(user),
     }
-    await userRepository.updatePicture(user, newUserData.user.picture)
+    await userRepository.updatePicture(user, uploadedPicture)
     return newUserData
   } catch (err) {
     // check if duplicate
@@ -55,7 +57,23 @@ const loadUserLecturesStatistics = async user => {
   }
 }
 
+const updateUserPicture = async (picture, user) => {
+  // upload new picture
+  const uploadedPicture = await storage.uploadFile(picture, getPictureKey(picture))
+  await userRepository.updatePicture(user, uploadedPicture)
+
+  // delete old picture
+  if (user.pictureKey) {
+    await storage.deleteFile(user.pictureKey)
+  }
+
+  return {
+    picture: uploadedPicture.url,
+  }
+}
+
 module.exports = {
   register,
   loadUserLecturesStatistics,
+  updateUserPicture,
 }

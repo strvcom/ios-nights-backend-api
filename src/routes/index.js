@@ -27,6 +27,7 @@ router.patch('/lectures/:id/assignment', authenticated, lectureController.update
 
 // Users
 router.post('/register', userController.register)
-router.get('/me', authenticated, userController.user)
+router.get('/user', authenticated, userController.user)
+router.patch('/user/picture', authenticated, userController.updatePicture)
 
 module.exports = router.routes()

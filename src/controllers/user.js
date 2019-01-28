@@ -24,7 +24,13 @@ const user = async ctx => {
   }
 }
 
+const updatePicture = async ctx => {
+  validate({ picture: ctx.request.files.picture }, User.updateValidationRules)
+  ctx.body = await operations.updateUserPicture(ctx.request.files.picture, ctx.user)
+}
+
 module.exports = {
   register,
   user,
+  updatePicture,
 }

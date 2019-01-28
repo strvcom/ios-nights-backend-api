@@ -21,16 +21,28 @@ const uploadFile = ({ path, type }, fileName) => new Promise((resolve, reject) =
     if (err) {
       reject(err)
     } else if (data) {
-      resolve(data.Location)
+      resolve({
+        url: data.Location,
+        key: data.Key,
+      })
     }
   })
 })
 
-// const deleteFile = async path => {
-//
-// }
+const deleteFile = key => new Promise((resolve, reject) => {
+  s3.deleteObject({
+    Bucket: config.aws.bucket,
+    Key: key,
+  }, (err, data) => {
+    if (err) {
+      reject(err)
+    } else if (data) {
+      resolve(true)
+    }
+  })
+})
 
 module.exports = {
   uploadFile,
-  // deleteFile,
+  deleteFile,
 }

@@ -33,6 +33,12 @@ class User extends Model {
     })
   }
 
+  static get updateValidationRules() {
+    return Joi.object().keys({
+      picture: Joi.any().required(),
+    })
+  }
+
   toJSON() {
     return R.omit([
       'password',

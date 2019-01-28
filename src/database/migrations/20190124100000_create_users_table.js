@@ -7,6 +7,7 @@ module.exports = {
     table.text('email').notNullable().unique()
     table.text('password').notNullable()
     table.string('picture')
+    table.string('picture_key')
     table.dateTime('created_at').notNullable().defaultTo(knex.fn.now())
   }),
   down: knex => knex.schema.dropTableIfExists('users'),

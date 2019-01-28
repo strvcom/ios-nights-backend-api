@@ -14,7 +14,10 @@ const getByEmail = email => User
 
 const createUser = userData => User.query().insert(userData)
 
-const updatePicture = (user, picture) => User.query().patch({ picture }).where('id', user.id)
+const updatePicture = (user, { url, key }) => User
+  .query()
+  .patch({ picture: url, pictureKey: key })
+  .where('id', user.id)
 
 module.exports = {
   getById,
