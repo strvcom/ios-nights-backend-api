@@ -60,6 +60,11 @@ const loginData = {
   password: 'passw0rd',
 }
 
+const uploadedPicture = {
+  key: 'users/test-file.jpg',
+  url: 'www.amazonaws.com/users/test-file.jpg',
+}
+
 module.exports = {
   lecturesDB,
   lecturesList,
@@ -67,4 +72,5 @@ module.exports = {
   userData,
   loginData,
   duplicateUserData,
+  uploadedPicture,
 }

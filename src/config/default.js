@@ -29,7 +29,7 @@ module.exports = env => ({
     secret: process.env.AUTH_SECRET,
     saltRounds: 10,
     createOptions: {
-      expiresIn: 60 * 60,
+      expiresIn: 3 * 60 * 60,
       algorithm: 'HS256',
       issuer: `com.strv.ios-nights-api.${env}`,
     },

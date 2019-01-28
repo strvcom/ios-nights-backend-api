@@ -9,8 +9,11 @@ const s3 = new aws.S3({
 })
 
 const uploadFile = ({ path, type }, fileName) => new Promise((resolve, reject) => {
+  // read file
   const fileStream = fs.createReadStream(path)
   fileStream.on('error', reject)
+
+  // upload file
   s3.upload({
     ACL: 'public-read',
     Bucket: config.aws.bucket,

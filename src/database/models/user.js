@@ -30,6 +30,7 @@ class User extends Model {
       email: Joi.string().email(),
       password: Joi.string().min(8).max(20)
         .required(),
+      picture: Joi.any().required(),
     })
   }
 
