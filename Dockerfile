@@ -1,4 +1,4 @@
-FROM node:11-alpine
+FROM node:10-alpine
 
 RUN apk add --no-cache --update g++ python2 make
 
@@ -15,4 +15,4 @@ ENV NODE_ENV=production
 RUN chown -R node:node /app/*
 USER node
 
-CMD node src/index
+CMD node src/index.js
