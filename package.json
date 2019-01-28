@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "dev": "nodemon src/index.js | pino-pretty",
+    "start": "node src/index.js",
     "test": "NODE_ENV=test node tests/setup.js && NODE_ENV=test jest --verbose",
     "test:coverage": "yarn test --coverage",
     "test:coverage:show": "open coverage/lcov-report/index.html",
