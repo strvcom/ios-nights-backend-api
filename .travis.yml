@@ -1,39 +1,49 @@
+---
 sudo: required
 dist: trusty
 language: node_js
 node_js:
   - 10.15.0
+
 branches:
   only:
     - dev
+
 cache:
   directories:
     - node_modules
+
 services:
   - docker
+
 env:
   global:
     - NODE_ENV=test
+
 install:
-  - npm run install
+  - npm install
+
 before_script:
   - sudo service postgresql stop
   - docker ps
   - npm run infra:start
   - sleep 5
   - npm run db:migrate
+
 script:
   - npm run test:coverage
+
 deploy:
   - provider: heroku
     skip_cleanup: true
     api_key:
-      secure: FHzkqlmxoUs/nF0OCBLxNXBDdgX9EiRvWdkVe7Nt6fStFFSEyp+qd/fDSceBxNcWbPFlz+A4ldkx+ARErHik0kTFNn7sVn0rao3HASfT4FEEcy65LGSs8wa8dNZ8d7u4dP+HdF8B+nefUvMoOxL7VJODoCMBnO9ABG2TL8b/qX6XUkqC/p5tLf7S5O12kBslyszG7pvESACwXwSLb1k8dwrm7r6N/iIH+Pyb21liye2iVJWCqvHhQ6P6XQGw3utlD0BTyTE0rpCbHtB8cPFmc4q23XfFXJyfgiVBTmhH0tw3ubtbRGWd2tlPkbAeJUUIUZIjV2N5zTvObg9517Yusa6Hk1rIuTxVexUrFKTgE/TKjQooy8lOPwED8FzcRgebF/ZJ+o9N9B0YfEHuPCkv/SMYMQIcyuUhEq8RT0W6pdjSuK5O6PXugdOb0PSzXsh9yTNqCJfao6CZvmCHaPOqH/lJ+bEDr7Y9jxIyhvWPNmLwwF7Jncrf5W3s4e0REtvWoVI7nhJfgOxBIbJqXC95OH4v3TDT/tdmN/Gvev+U4b00yJ5Fd6yTX6ZWY5jl3tmyOzReWxobICOcWMWFU22mjRs/01qu5FD8dd+2LOfHjagHwoWM2L96kEWkPYHFsqCnzjSbYYz5cmCIA4QofvZRGk/1vnA2WUDGBKq0NEuBuOk=
+      secure: "FHzkqlmxoUs/nF0OCBLxNXBDdgX9EiRvWdkVe7Nt6fStFFSEyp+qd/fDSceBxNcWbPFlz+A4ldkx+ARErHik0kTFNn7sVn0rao3HASfT4FEEcy65LGSs8wa8dNZ8d7u4dP+HdF8B+nefUvMoOxL7VJODoCMBnO9ABG2TL8b/qX6XUkqC/p5tLf7S5O12kBslyszG7pvESACwXwSLb1k8dwrm7r6N/iIH+Pyb21liye2iVJWCqvHhQ6P6XQGw3utlD0BTyTE0rpCbHtB8cPFmc4q23XfFXJyfgiVBTmhH0tw3ubtbRGWd2tlPkbAeJUUIUZIjV2N5zTvObg9517Yusa6Hk1rIuTxVexUrFKTgE/TKjQooy8lOPwED8FzcRgebF/ZJ+o9N9B0YfEHuPCkv/SMYMQIcyuUhEq8RT0W6pdjSuK5O6PXugdOb0PSzXsh9yTNqCJfao6CZvmCHaPOqH/lJ+bEDr7Y9jxIyhvWPNmLwwF7Jncrf5W3s4e0REtvWoVI7nhJfgOxBIbJqXC95OH4v3TDT/tdmN/Gvev+U4b00yJ5Fd6yTX6ZWY5jl3tmyOzReWxobICOcWMWFU22mjRs/01qu5FD8dd+2LOfHjagHwoWM2L96kEWkPYHFsqCnzjSbYYz5cmCIA4QofvZRGk/1vnA2WUDGBKq0NEuBuOk="
     app: ios-nights
     strategy: git
     on:
       branch:
         - dev
       repo: strvcom/ios-nights-backend-api
-  notifications:
+
+notifications:
   email: false
