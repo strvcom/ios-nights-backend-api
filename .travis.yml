@@ -7,7 +7,7 @@ node_js:
 
 branches:
   only:
-    - dev
+    - master
 
 cache:
   directories:
@@ -42,7 +42,7 @@ deploy:
     strategy: git
     on:
       branch:
-        - dev
+        - master
       repo: strvcom/ios-nights-backend-api
 
 notifications:
