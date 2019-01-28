@@ -8,7 +8,7 @@ module.exports = {
     table.text('assignment').notNullable()
     table.string('preview_picture')
     table.string('detail_picture')
-    table.timestamps()
+    table.timestamps(true, true)
   }),
   down: knex => knex.schema.dropTableIfExists('lectures'),
 }

@@ -14,7 +14,8 @@
     "infra:stop": "docker-compose down",
     "migrate:make": "knex migrate:make --knexfile ./src/database/knexfile.js",
     "db:migrate": "knex migrate:latest --knexfile ./src/database/knexfile.js",
-    "db:rollback": "knex migrate:rollback --knexfile ./src/database/knexfile.js"
+    "db:rollback": "knex migrate:rollback --knexfile ./src/database/knexfile.js",
+    "db:seed": "knex seed:run --knexfile ./src/database/knexfile.js"
   },
   "engines": {
     "node": "v10.15.0"
@@ -80,7 +81,8 @@
     "collectCoverageFrom": [
       "src/**/*.js",
       "!src/config/env/*.js",
-      "!src/database/migrations/*.js"
+      "!src/database/migrations/*.js",
+      "!src/database/seeds/*.js"
     ]
   }
 }
