@@ -21,7 +21,7 @@ test('Generate and verify access token', async () => {
 })
 
 test('Parse access token from HTTP header', () => {
-  const httpHeader1 = 'jwt eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE1MTYyMzkwMjJ9.hqWGSaFpvbrXkOWc6lrnffhNWR19W_S1YKFBx2arWBk'
+  const httpHeader1 = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE1MTYyMzkwMjJ9.hqWGSaFpvbrXkOWc6lrnffhNWR19W_S1YKFBx2arWBk'
   const accessToken1 = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE1MTYyMzkwMjJ9.hqWGSaFpvbrXkOWc6lrnffhNWR19W_S1YKFBx2arWBk'
   const token1 = security.parseJwtTokenFromHeader(httpHeader1)
   expect(token1).toBe(accessToken1)
@@ -32,7 +32,7 @@ test('Parse access token from HTTP header', () => {
 })
 
 test('Throw UnauthorizedError when access token is invalid', async () => {
-  const httpHeader = 'jwt wrong'
+  const httpHeader = 'Bearer wrong'
   const token = security.parseJwtTokenFromHeader(httpHeader)
   let threw = false
   try {

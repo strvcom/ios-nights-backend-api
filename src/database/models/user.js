@@ -30,13 +30,13 @@ class User extends Model {
       email: Joi.string().email(),
       password: Joi.string().min(8).max(20)
         .required(),
-      picture: Joi.any().required(),
+      picture: Joi.string().max(300),
     })
   }
 
   static get updateValidationRules() {
     return Joi.object().keys({
-      picture: Joi.any().required(),
+      picture: Joi.string().max(300).required(),
     })
   }
 

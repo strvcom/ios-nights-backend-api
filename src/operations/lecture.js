@@ -4,15 +4,23 @@ const R = require('ramda')
 const lectureRepository = require('../repositories/lecture')
 const errors = require('../utils/errors')
 
+const getLecture = async id => {
+  const lecture = await lectureRepository.getById(id)
+  if (!lecture) {
+    throw new errors.NotFoundError('Lecture not found', { id })
+  }
+  return lecture
+}
+
 /**
- *  Map user's attendance to individual lectures
- * @param user
+ *  Map user's attendance to lectures
+ * @param userId
  * @param lectures
  * @returns {Promise<*>}
  */
-const addUserToLectures = async (user, lectures) => {
+const getLecturesWithUserStats = async (lectures, userId) => {
   const lecturesIds = lectures.map(lecture => lecture.id)
-  const userLectures = await lectureRepository.getUserLectures(user, lecturesIds)
+  const userLectures = await lectureRepository.getUserLectures(userId, lecturesIds)
   return lectures.map(lecture => ({
     ...lecture,
     attended: R.hasIn(lecture.id, userLectures),
@@ -20,9 +28,9 @@ const addUserToLectures = async (user, lectures) => {
   }))
 }
 
-const getList = async (user, page = 1, perPage = 20) => {
+const getList = async (userId, { page = 1, perPage = 20 }) => {
   const { results, total } = await lectureRepository.paginate(page, perPage)
-  const lectures = await addUserToLectures(user, results)
+  const lectures = await getLecturesWithUserStats(results, userId)
   return {
     results: lectures,
     total,
@@ -31,36 +39,24 @@ const getList = async (user, page = 1, perPage = 20) => {
   }
 }
 
-const getDetail = async (user, id) => {
-  const lecture = await lectureRepository.getById(id)
-  if (!lecture) {
-    throw new errors.NotFoundError({ id }, 'Lecture not found')
-  }
-  return (await addUserToLectures(user, [lecture]))[0]
+const getDetail = async (userId, id) => {
+  const lecture = await getLecture(id)
+  return (await getLecturesWithUserStats([lecture], userId))[0]
 }
 
-const updateAttendance = async (lectureId, attends, user) => {
-  const lecture = await lectureRepository.getById(lectureId)
-  if (!lecture) {
-    throw new errors.NotFoundError({ lectureId }, 'Lecture not found')
-  }
-  return {
-    attends: await lectureRepository.updateAttendance(lectureId, attends, user.id),
-  }
+const updateAttendance = async ({ lectureId, attends }, userId) => {
+  await getLecture(lectureId)
+  await lectureRepository.updateAttendance(lectureId, attends, userId)
+  return getDetail(userId, lectureId)
 }
 
-const updateAssignmentStatus = async (lectureId, done, user) => {
-  const lecture = await lectureRepository.getById(lectureId)
-  if (!lecture) {
-    throw new errors.NotFoundError({ lectureId }, 'Lecture not found')
-  }
-  const status = await lectureRepository.updateAssignmentStatus(lectureId, done, user.id)
+const updateAssignmentStatus = async ({ lectureId, done }, userId) => {
+  await getLecture(lectureId)
+  const status = await lectureRepository.updateAssignmentStatus(lectureId, done, userId)
   if (status === null) {
     throw new errors.BadRequestError('User doesn\'t attend this lecture')
   }
-  return {
-    done: status,
-  }
+  return getDetail(userId, lectureId)
 }
 
 module.exports = {

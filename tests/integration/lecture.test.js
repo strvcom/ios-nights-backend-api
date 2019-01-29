@@ -12,7 +12,7 @@ beforeAll(async () => {
   const { body } = await request(app)
     .post('/login')
     .send(data.loginData)
-  userToken = `jwt ${body.tokenInfo.accessToken}`
+  userToken = `Bearer ${body.tokenInfo.accessToken}`
 })
 
 describe('Lectures', () => {
@@ -59,9 +59,7 @@ describe('PATCH /lectures/:id/attendance', () => {
         attends: true,
       })
       .expect(200)
-    expect(body).toMatchObject({
-      attends: true,
-    })
+    expect(body.attended).toEqual(true)
   })
 })
 
@@ -81,8 +79,6 @@ describe('PATCH /lectures/:id/assignment', () => {
         done: true,
       })
       .expect(200)
-    expect(body).toMatchObject({
-      done: true,
-    })
+    expect(body.assignmentDone).toEqual(true)
   })
 })

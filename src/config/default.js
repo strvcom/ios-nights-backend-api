@@ -45,4 +45,7 @@ module.exports = env => ({
     bucket: 'strv-ios-nights2019',
     apiVersion: '2012-10-17',
   },
+  pagination: {
+    perPage: 20,
+  },
 })

@@ -5,25 +5,21 @@ const { validate } = require('../utils/validation')
 const User = require('../database/models/user')
 
 const register = async ctx => {
-  const input = {
-    ...ctx.request.body,
-    picture: ctx.request.files.picture,
-  }
-  validate(input, User.validationRules)
-  ctx.body = await operations.register(input)
+  validate(ctx.request.body, User.validationRules)
+  ctx.body = await operations.register(ctx.request.body)
   ctx.status = 201
 }
 
 const user = async ctx => {
   ctx.body = {
     ...ctx.user.toJSON(),
-    lecturesStatistics: await operations.loadUserLecturesStatistics(ctx.user),
+    lecturesStatistics: await operations.loadUserLecturesStatistics(ctx.user.id),
   }
 }
 
 const updatePicture = async ctx => {
-  validate({ picture: ctx.request.files.picture }, User.updateValidationRules)
-  ctx.body = await operations.updateUserPicture(ctx.request.files.picture, ctx.user)
+  validate(ctx.request.body, User.updateValidationRules)
+  ctx.body = await operations.updateUserPicture(ctx.request.body, ctx.user.id)
 }
 
 module.exports = {

@@ -29,7 +29,7 @@ const validate = (input, schema, throwOnFail = true) => {
   }
 
   if (throwOnFail) {
-    throw new BadRequestError(validationResult)
+    throw new BadRequestError('Invalid data', validationResult)
   }
   return validationResult
 }

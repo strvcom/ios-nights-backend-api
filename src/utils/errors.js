@@ -21,7 +21,7 @@ class ApiError extends Error {
  * HTTP 404 NotFound Error class
  */
 class NotFoundError extends ApiError {
-  constructor(payload = {}, message = http.STATUS_CODES[404]) {
+  constructor(message = http.STATUS_CODES[404], payload = {}) {
     super(message, payload, 404)
   }
 }
@@ -30,7 +30,7 @@ class NotFoundError extends ApiError {
  * HTTP 400 BadRequest Error class
  */
 class BadRequestError extends ApiError {
-  constructor(payload = {}, message = http.STATUS_CODES[400]) {
+  constructor(message = http.STATUS_CODES[400], payload = {}) {
     super(message, payload, 400)
   }
 }
@@ -39,7 +39,7 @@ class BadRequestError extends ApiError {
  * HTTP 401 UnauthorizedError Error class
  */
 class UnauthorizedError extends ApiError {
-  constructor(payload = {}, message = http.STATUS_CODES[401]) {
+  constructor(message = http.STATUS_CODES[401], payload = {}) {
     super(message, payload, 401)
   }
 }
@@ -48,7 +48,7 @@ class UnauthorizedError extends ApiError {
  * HTTP 403 Forbidden Error class
  */
 class ForbiddenError extends ApiError {
-  constructor(payload = {}, message = http.STATUS_CODES[403]) {
+  constructor(message = http.STATUS_CODES[403], payload = {}) {
     super(message, payload, 403)
   }
 }
@@ -57,7 +57,7 @@ class ForbiddenError extends ApiError {
  * HTTP 409 InternalError Error class
  */
 class ConflictError extends ApiError {
-  constructor(payload = {}, message = http.STATUS_CODES[409]) {
+  constructor(message = http.STATUS_CODES[409], payload = {}) {
     super(message, payload, 409)
   }
 }
@@ -66,7 +66,7 @@ class ConflictError extends ApiError {
  * HTTP 500 InternalError Error class
  */
 class InternalError extends ApiError {
-  constructor(payload = {}, message = http.STATUS_CODES[500]) {
+  constructor(message = http.STATUS_CODES[500], payload = {}) {
     super(message, payload, 500)
   }
 }
@@ -108,10 +108,6 @@ const formatResponseError = (err, env) => {
   return responseError
 }
 
-const dbErrors = {
-  DUPLICATE_ERROR: '23505',
-}
-
 module.exports = {
   ApiError,
   NotFoundError,
@@ -122,5 +118,4 @@ module.exports = {
   ConflictError,
   notFoundHandler,
   formatResponseError,
-  dbErrors,
 }

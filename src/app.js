@@ -23,7 +23,7 @@ app
   .use(koaErrors())
   .use(koaCors())
   .use(koaHelmet())
-  .use(koaBody({ multipart: true }))
+  .use(koaBody())
   .use(routes)
   .use(notFoundHandler())
 

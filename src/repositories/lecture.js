@@ -14,14 +14,14 @@ const getById = id => Lecture
   .where('id', id)
   .first()
 
-const getUserLectures = async (user, lecturesIds) => {
+const getUserLectures = async (userId, lecturesIds) => {
   if (lecturesIds.length === 0) {
     return []
   }
   const { rows } = await knex.raw(`
   SELECT lecture_id, assignment_done AS done
   FROM user_lectures
-  WHERE user_id = ? AND lecture_id IN (??)`, [user.id, lecturesIds])
+  WHERE user_id = ? AND lecture_id IN (??)`, [userId, lecturesIds])
   return R.indexBy(R.prop('lecture_id'), rows)
 }
 
@@ -58,17 +58,17 @@ const getTotalLectures = async () => {
   return rows[0].count
 }
 
-const getAttendedLecturesCount = async user => {
+const getAttendedLecturesCount = async userId => {
   const { rowCount } = await knex.raw(`
     SELECT 1 FROM user_lectures WHERE user_id = ?
-   `, [user.id])
+   `, [userId])
   return rowCount
 }
 
-const getAssignmentsCount = async user => {
+const getAssignmentsCount = async userId => {
   const { rowCount } = await knex.raw(`
     SELECT 1 FROM user_lectures WHERE user_id = ? AND assignment_done = true
-   `, [user.id])
+   `, [userId])
   return rowCount
 }
 

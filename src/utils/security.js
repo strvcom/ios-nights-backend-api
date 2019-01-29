@@ -53,7 +53,7 @@ const verifyAccessToken = async accessToken => {
     )
     return result.userId
   } catch (err) {
-    throw new UnauthorizedError({}, err.message)
+    throw new UnauthorizedError(err.message)
   }
 }
 
@@ -66,8 +66,12 @@ const parseJwtTokenFromHeader = header => {
   if (!header || isEmpty(header)) {
     return null
   }
-  const mask = /jwt (.+)/u
-  return header.match(mask)[1]
+  const mask = /Bearer (.+)/u
+  const result = header.match(mask)
+  if (!result) {
+    return null
+  }
+  return result[1]
 }
 
 /**
@@ -81,7 +85,7 @@ const authenticateByToken = authHeader => {
 
   // check if token is provided
   if (!token) {
-    throw new UnauthorizedError({}, 'Missing authorization header')
+    throw new UnauthorizedError('Missing authorization header')
   }
 
   // check token validity
