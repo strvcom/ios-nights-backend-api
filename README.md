@@ -4,6 +4,8 @@
 
 Api service for iOS nights workshop
 
+`https://ios-nights.herokuapp.com`
+
 ### Endpoints
 
 | Endpoint | Description | Method | Params | Protected |
@@ -21,4 +23,4 @@ Api service for iOS nights workshop
 #### Authentication
 For accessing protected endpoints you need to provide `Authorization` header
 
-`Authorization: Bearer TOKEN_HERE`
+`Authorization: Bearer TOKEN`
