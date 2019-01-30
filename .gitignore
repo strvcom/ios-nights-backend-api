@@ -1,6 +1,5 @@
 .idea/
 node_modules/
-docker/data
 coverage/
 docs/
 

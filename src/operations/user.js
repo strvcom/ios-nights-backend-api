@@ -27,15 +27,19 @@ const register = async input => {
 }
 
 const loadUserLecturesStatistics = async userId => {
-  const data = await Promise.all([
+  const [
+    total,
+    attended,
+    assignmentsDone,
+  ] = await Promise.all([
     lectureRepository.getTotalLectures(),
     lectureRepository.getAttendedLecturesCount(userId),
     lectureRepository.getAssignmentsCount(userId),
   ])
   return {
-    total: data[0],
-    attended: data[1],
-    assignmentsDone: data[2],
+    total,
+    attended,
+    assignmentsDone,
   }
 }
 

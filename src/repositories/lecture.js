@@ -3,8 +3,8 @@
 const R = require('ramda')
 const Lecture = require('../database/models/lecture')
 const User = require('../database/models/user')
-const userRepository = require('./user')
 const { knex } = require('../database')
+const userRepository = require('./user')
 
 const paginate = (page, perPage) => Lecture
   .query()

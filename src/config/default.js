@@ -45,6 +45,7 @@ module.exports = env => ({
     bucket: process.env.AWS_BUCKET,
     apiVersion: '2012-10-17',
     signUrlExpiration: 60,
+    s3Url: `https://${process.env.AWS_BUCKET}.s3.amazonaws.com`,
   },
   pagination: {
     perPage: 20,

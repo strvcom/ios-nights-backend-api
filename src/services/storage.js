@@ -61,7 +61,7 @@ const getS3SignUrl = ({ name, type, directory = '' }) => new Promise((resolve, r
     }
     resolve({
       signedRequest: data,
-      url: `https://${config.aws.bucket}.s3.amazonaws.com/${filename}`,
+      url: `${config.aws.s3Url}/${filename}`,
     })
   })
 })
