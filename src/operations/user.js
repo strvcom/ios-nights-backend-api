@@ -21,7 +21,7 @@ const register = async input => {
   // create user
   const user = await userRepository.createUser(userData)
   return {
-    ...user.toJSON(),
+    user,
     tokenInfo: security.generateAccessToken(user.id),
   }
 }
