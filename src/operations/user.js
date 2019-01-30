@@ -1,6 +1,5 @@
 'use strict'
 
-const R = require('ramda')
 const userRepository = require('../repositories/user')
 const lectureRepository = require('../repositories/lecture')
 const errors = require('../utils/errors')
@@ -12,7 +11,7 @@ const register = async input => {
     name: input.name,
     email: input.email.toLowerCase(),
     password: await security.hash(input.password),
-    picture: R.hasIn('picture', input) ? input.picture.toLowerCase() : '',
+    picture: input.picture || '',
   }
   // check if users exists
   const exists = await userRepository.getByEmail(userData.email)
