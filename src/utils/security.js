@@ -1,4 +1,3 @@
-/* eslint-disable no-useless-escape */
 'use strict'
 
 const { promisify } = require('util')
@@ -25,7 +24,7 @@ const verifyPassword = (password, hashedPassword) => bcrypt.compare(password, ha
 
 /**
  * Generates JWT token
- * @param {number} userId
+ * @param {number} userId ID of logged in user
  * @returns {{accessToken: string}}
  */
 const generateAccessToken = userId => {

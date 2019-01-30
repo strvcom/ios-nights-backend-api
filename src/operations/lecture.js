@@ -14,8 +14,8 @@ const getLecture = async id => {
 
 /**
  *  Map user's attendance to lectures
- * @param userId
- * @param lectures
+ * @param {Lecture[]} lectures Array of lectures
+ * @param {Number} userId User's ID
  * @returns {Promise<*>}
  */
 const getLecturesWithUserStats = async (lectures, userId) => {

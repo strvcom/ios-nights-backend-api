@@ -24,8 +24,8 @@ const updatePicture = async ctx => {
 }
 
 const getPictureUploadUrl = async ctx => {
-  validate(ctx.request.query, storageValidation.awsSignS3)
-  const { name, type } = ctx.request.query
+  validate(ctx.request.body, storageValidation.awsSignS3)
+  const { name, type } = ctx.request.body
   ctx.body = await operations.generatePictureUploadUrl({ name, type })
 }
 

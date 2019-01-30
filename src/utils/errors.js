@@ -39,8 +39,8 @@ class BadRequestError extends ApiError {
  * HTTP 401 UnauthorizedError Error class
  */
 class UnauthorizedError extends ApiError {
-  constructor(message = http.STATUS_CODES[401], payload = {}) {
-    super(message, payload, 401)
+  constructor(message = http.STATUS_CODES[401]) {
+    super(message, null, 401)
   }
 }
 
@@ -48,8 +48,8 @@ class UnauthorizedError extends ApiError {
  * HTTP 403 Forbidden Error class
  */
 class ForbiddenError extends ApiError {
-  constructor(message = http.STATUS_CODES[403], payload = {}) {
-    super(message, payload, 403)
+  constructor(message = http.STATUS_CODES[403]) {
+    super(message, null, 403)
   }
 }
 

@@ -4,8 +4,6 @@ const request = require('supertest-koa-agent')
 const app = require('../../src/app')
 const data = require('../data')
 
-require('../stubs/storage')
-
 let userToken = null
 
 beforeAll(async () => {
@@ -25,10 +23,10 @@ describe('POST /register', () => {
   })
 })
 
-describe('PATCH /user/picture', () => {
+describe('PATCH /users/me/picture', () => {
   test('It should update user\'s picture', async () => {
     const { body } = await request(app)
-      .patch('/user/picture')
+      .patch('/users/me/picture')
       .set('Authorization', userToken)
       .send(data.uploadedPicture)
       .expect(200)
