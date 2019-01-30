@@ -42,14 +42,19 @@ const lecturesList = [
 
 const lectureDetail = { ...lecturesList[0] }
 
-const userData = {
-  id: 1,
-  name: 'John Doe',
-  password: '$2b$10$LTLMdAPm2HHpm0ctBJu48OmVhWrjpB1Srn.sehbhAQoey7bUQZBtG',
-  email: 'john.doe@example.org',
+const dbRowUser = [
+  'John Doe',
+  'john.doe@example.org',
+  '$2b$10$LTLMdAPm2HHpm0ctBJu48OmVhWrjpB1Srn.sehbhAQoey7bUQZBtG',
+]
+
+const registerUser = {
+  name: 'Patrick Smith',
+  password: 'pass1234',
+  email: 'patricks39@seznam.cz',
 }
 
-const duplicateUserData = {
+const registerDuplicateUser = {
   name: 'John Doe',
   password: 'passw0rd',
   email: 'john.doe@example.org',
@@ -64,12 +69,21 @@ const uploadedPicture = {
   picture: 'www.amazonaws.com/users/test-file.jpg',
 }
 
+const user = {
+  id: 1,
+  name: 'John Doe',
+  password: 'passw0rd',
+  email: 'john.doe@example.org',
+}
+
 module.exports = {
   lecturesDB,
   lecturesList,
   lectureDetail,
-  userData,
+  dbRowUser,
   loginData,
-  duplicateUserData,
+  registerDuplicateUser,
   uploadedPicture,
+  registerUser,
+  user,
 }

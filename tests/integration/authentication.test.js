@@ -3,32 +3,30 @@
 const request = require('supertest-koa-agent')
 const app = require('../../src/app')
 const security = require('../../src/utils/security')
-const { loginData, userData } = require('../data')
+const data = require('../data')
 
 // test authentication - login, access token
 describe('POST /login', () => {
   test('It should return verified user with access token', async () => {
-    const res = await request(app)
+    const { body } = await request(app)
       .post('/login')
-      .send(loginData)
+      .send(data.loginData)
       .expect(200)
-
-    expect(Object.keys(res.body)).toEqual(expect.arrayContaining([
+    expect(Object.keys(body)).toEqual(expect.arrayContaining([
       'user',
       'tokenInfo',
     ]))
-
     // validate accessToken
-    const { accessToken } = res.body.tokenInfo
+    const { accessToken } = body.tokenInfo
     const userId = await security.verifyAccessToken(accessToken)
-    expect(userId).toEqual(userData.id)
+    expect(userId).toEqual(data.user.id)
   })
 
   test('It should return Unauthorized 401 error on invalid credentials', async () => {
     await request(app)
       .post('/login')
       .send({
-        email: loginData.email,
+        email: data.loginData.email,
         password: 'wrong password',
       })
       .expect(401)
