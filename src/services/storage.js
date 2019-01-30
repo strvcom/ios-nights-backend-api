@@ -45,7 +45,30 @@ const deleteFile = key => new Promise((resolve, reject) => {
   })
 })
 
+const getS3SignUrl = ({ name, type, directory = '' }) => new Promise((resolve, reject) => {
+  const filename = `${directory}/${name}`.replace(/^\/+/ug, '')
+  const s3Params = {
+    Bucket: config.aws.bucket,
+    Key: filename,
+    Expires: config.aws.signUrlExpiration,
+    ContentType: type,
+    ACL: 'public-read',
+  }
+
+  s3.getSignedUrl('putObject', s3Params, (err, data) => {
+    if (err) {
+      reject(err)
+    }
+    resolve({
+      signedRequest: data,
+      url: `https://${config.aws.bucket}.s3.amazonaws.com/${filename}`,
+    })
+  })
+})
+
+
 module.exports = {
   uploadFile,
   deleteFile,
+  getS3SignUrl,
 }

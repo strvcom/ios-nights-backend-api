@@ -42,8 +42,9 @@ module.exports = env => ({
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
     region: process.env.AWS_REGION,
-    bucket: 'strv-ios-nights2019',
+    bucket: process.env.AWS_BUCKET,
     apiVersion: '2012-10-17',
+    signUrlExpiration: 60,
   },
   pagination: {
     perPage: 20,

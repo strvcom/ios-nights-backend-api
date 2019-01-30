@@ -1,40 +1,30 @@
 'use strict'
 
-const path = require('path')
-const uuid = require('uuid/v4')
+const R = require('ramda')
 const userRepository = require('../repositories/user')
 const lectureRepository = require('../repositories/lecture')
 const errors = require('../utils/errors')
 const security = require('../utils/security')
 const storage = require('../services/storage')
 
-const getPictureKey = picture => `users/${uuid()}${path.extname(picture.name)}`
-
 const register = async input => {
   const userData = {
     name: input.name,
     email: input.email.toLowerCase(),
     password: await security.hash(input.password),
+    picture: R.hasIn('picture', input) ? input.picture.toLowerCase() : '',
   }
   // check if users exists
   const exists = await userRepository.getByEmail(userData.email)
   if (exists) {
     throw new errors.ConflictError('User with given email address already exists')
   }
+  // create user
   const user = await userRepository.createUser(userData)
-  const uploadedPicture = await storage.uploadFile(input.picture, getPictureKey(input.picture))
-  const newUserData = {
-    user: {
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      picture: uploadedPicture.url,
-      pictureKey: uploadedPicture.key,
-    },
+  return {
+    ...user.toJSON(),
     tokenInfo: security.generateAccessToken(user.id),
   }
-  await userRepository.updatePicture(user.id, uploadedPicture)
-  return newUserData
 }
 
 const loadUserLecturesStatistics = async userId => {
@@ -50,23 +40,20 @@ const loadUserLecturesStatistics = async userId => {
   }
 }
 
-const updateUserPicture = async ({ picture }, user) => {
-  // upload new picture
-  const uploadedPicture = await storage.uploadFile(picture, getPictureKey(picture))
-  await userRepository.updatePicture(user, uploadedPicture)
-
-  // delete old picture
-  if (user.pictureKey) {
-    await storage.deleteFile(user.pictureKey)
-  }
-
-  return {
-    picture: uploadedPicture.url,
-  }
+const updateUserPicture = async ({ picture }, userId) => {
+  await userRepository.updatePicture(userId, picture)
+  return userRepository.getById(userId)
 }
+
+const generatePictureUploadUrl = ({ name, type }) => storage.getS3SignUrl({
+  name,
+  type,
+  directory: 'users',
+})
 
 module.exports = {
   register,
   loadUserLecturesStatistics,
   updateUserPicture,
+  generatePictureUploadUrl,
 }

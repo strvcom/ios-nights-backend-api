@@ -8,10 +8,11 @@ Api service for iOS nights workshop
 
 | Endpoint | Description | Method | Params | Protected |
 | :---------- |:------------| :-----:| :---- | :----: |
-| `/register` | Register user and returns user object with token | POST | `name`, `email`, `password`, `picture` (file)| - |
+| `/register` | Register user and returns user object with token | POST | `name`, `email`, `password`, `picture` | - |
 | `/login` | Login user and returns user object with token | POST | `email`, `password` | - |
 | `/user` | Verify token and returns user object | GET | - | Token |
-| `/user/picture` | Update user's profile picture | PATCH | `picture` - file | Token |
+| `/user/picture` | Get signed url for picture upload | GET | `name` - filename, `type` - file mime type | - |
+| `/user/picture` | Update user's profile picture | PATCH | `picture` | Token |
 | `/lectures`   | Return list of lectures | GET | `?page`, `?per_page` - pagination | Token | 
 | `/lectures/:id` | Return detail of lecture |   GET | `id` - ID of lecture | Token |
 | `/lectures/:id/attendance` | Update user's lecture attendance | PATCH | `attends` - `true/false` | Token |

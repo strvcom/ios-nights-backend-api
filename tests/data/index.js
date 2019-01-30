@@ -61,8 +61,7 @@ const loginData = {
 }
 
 const uploadedPicture = {
-  key: 'users/test-file.jpg',
-  url: 'www.amazonaws.com/users/test-file.jpg',
+  picture: 'www.amazonaws.com/users/test-file.jpg',
 }
 
 module.exports = {

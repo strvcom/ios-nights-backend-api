@@ -2,7 +2,8 @@
 
 const operations = require('../operations/user')
 const { validate } = require('../utils/validation')
-const userValidation = require('../validations/user')
+const userValidation = require('../validation/user')
+const storageValidation = require('../validation/storage')
 
 const register = async ctx => {
   validate(ctx.request.body, userValidation.validationRules)
@@ -22,8 +23,15 @@ const updatePicture = async ctx => {
   ctx.body = await operations.updateUserPicture(ctx.request.body, ctx.user.id)
 }
 
+const getPictureUploadUrl = async ctx => {
+  validate(ctx.request.query, storageValidation.awsSignS3)
+  const { name, type } = ctx.request.query
+  ctx.body = await operations.generatePictureUploadUrl({ name, type })
+}
+
 module.exports = {
   register,
   user,
   updatePicture,
+  getPictureUploadUrl,
 }

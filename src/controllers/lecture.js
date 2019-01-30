@@ -3,7 +3,7 @@
 const lectureOperations = require('../operations/lecture')
 const { validate } = require('../utils/validation')
 const config = require('../config')
-const userValidation = require('../validations/user')
+const userValidation = require('../validation/user')
 
 const list = async ctx => {
   const page = parseInt(ctx.request.query.page || 1)
