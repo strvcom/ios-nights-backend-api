@@ -4,8 +4,7 @@ const User = require('../database/models/user')
 
 const getById = id => User
   .query()
-  .where('id', id)
-  .first()
+  .findById(id)
 
 const getByEmail = email => User
   .query()
@@ -14,10 +13,10 @@ const getByEmail = email => User
 
 const createUser = userData => User.query().insert(userData)
 
-const updatePicture = (user, { url, key }) => User
+const updatePicture = (userId, { url, key }) => User
   .query()
   .patch({ picture: url, pictureKey: key })
-  .where('id', user.id)
+  .where('id', userId)
 
 module.exports = {
   getById,

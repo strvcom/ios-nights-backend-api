@@ -1,43 +1,11 @@
 'use strict'
 
 const R = require('ramda')
-const Joi = require('joi')
 const { Model } = require('../index')
 
 class User extends Model {
   static get tableName() {
     return 'users'
-  }
-
-  static get attendanceValidationRules() {
-    return Joi.object().keys({
-      attends: Joi.boolean().required(),
-    })
-  }
-
-  static get assignmentValidationRules() {
-    return Joi.object().keys({
-      done: Joi.boolean().required(),
-    })
-  }
-
-  static get validationRules() {
-    return Joi.object().keys({
-      name: Joi.string()
-        .min(3)
-        .max(30)
-        .required(),
-      email: Joi.string().email(),
-      password: Joi.string().min(8).max(20)
-        .required(),
-      picture: Joi.string().max(300),
-    })
-  }
-
-  static get updateValidationRules() {
-    return Joi.object().keys({
-      picture: Joi.string().max(300).required(),
-    })
   }
 
   toJSON() {
@@ -61,6 +29,7 @@ class User extends Model {
         join: {
           from: 'users.id',
           through: {
+            extra: ['assignment_done'],
             from: 'user_lectures.user_id',
             to: 'user_lectures.lecture_id',
           },

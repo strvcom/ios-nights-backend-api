@@ -25,12 +25,12 @@ const verifyPassword = (password, hashedPassword) => bcrypt.compare(password, ha
 
 /**
  * Generates JWT token
- * @param {*} user Authenticated user
+ * @param {number} userId
  * @returns {{accessToken: string}}
  */
-const generateAccessToken = user => {
+const generateAccessToken = userId => {
   const accessToken = jwt.sign({
-    userId: user.id,
+    userId,
   }, config.security.secret, config.security.createOptions)
   return {
     accessToken,

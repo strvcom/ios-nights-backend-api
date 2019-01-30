@@ -2,10 +2,10 @@
 
 const operations = require('../operations/user')
 const { validate } = require('../utils/validation')
-const User = require('../database/models/user')
+const userValidation = require('../validations/user')
 
 const register = async ctx => {
-  validate(ctx.request.body, User.validationRules)
+  validate(ctx.request.body, userValidation.validationRules)
   ctx.body = await operations.register(ctx.request.body)
   ctx.status = 201
 }
@@ -18,7 +18,7 @@ const user = async ctx => {
 }
 
 const updatePicture = async ctx => {
-  validate(ctx.request.body, User.updateValidationRules)
+  validate(ctx.request.body, userValidation.updateValidationRules)
   ctx.body = await operations.updateUserPicture(ctx.request.body, ctx.user.id)
 }
 

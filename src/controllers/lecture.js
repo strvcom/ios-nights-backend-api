@@ -2,8 +2,8 @@
 
 const lectureOperations = require('../operations/lecture')
 const { validate } = require('../utils/validation')
-const User = require('../database/models/user')
 const config = require('../config')
+const userValidation = require('../validations/user')
 
 const list = async ctx => {
   const page = parseInt(ctx.request.query.page || 1)
@@ -17,14 +17,14 @@ const detail = async ctx => {
 }
 
 const updateAttendance = async ctx => {
-  validate(ctx.request.body, User.attendanceValidationRules)
+  validate(ctx.request.body, userValidation.attendanceValidationRules)
   const attends = Boolean(ctx.request.body.attends)
   const lectureId = parseInt(ctx.params.id)
   ctx.body = await lectureOperations.updateAttendance({ lectureId, attends }, ctx.user.id)
 }
 
 const updateAssignment = async ctx => {
-  validate(ctx.request.body, User.assignmentValidationRules)
+  validate(ctx.request.body, userValidation.assignmentValidationRules)
   const done = Boolean(ctx.request.body.done)
   const lectureId = parseInt(ctx.params.id)
   ctx.body = await lectureOperations.updateAssignmentStatus({ lectureId, done }, ctx.user.id)

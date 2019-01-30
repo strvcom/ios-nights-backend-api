@@ -24,7 +24,7 @@ const getLecturesWithUserStats = async (lectures, userId) => {
   return lectures.map(lecture => ({
     ...lecture,
     attended: R.hasIn(lecture.id, userLectures),
-    assignmentDone: R.hasIn(lecture.id, userLectures) ? userLectures[lecture.id].done : false,
+    assignmentDone: R.hasIn(lecture.id, userLectures) && userLectures[lecture.id].assignmentDone,
   }))
 }
 

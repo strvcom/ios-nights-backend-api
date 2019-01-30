@@ -16,7 +16,7 @@ test('Generate and verify access token', async () => {
     surname: 'Doe',
     age: 39,
   }
-  const { accessToken } = await security.generateAccessToken(user)
+  const { accessToken } = await security.generateAccessToken(user.id)
   expect(await security.verifyAccessToken(accessToken)).toEqual(user.id)
 })
 

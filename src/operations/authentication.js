@@ -17,7 +17,7 @@ const login = async input => {
   }
   return {
     user,
-    tokenInfo: await security.generateAccessToken(user),
+    tokenInfo: await security.generateAccessToken(user.id),
   }
 }
 

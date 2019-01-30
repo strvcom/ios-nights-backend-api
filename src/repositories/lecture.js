@@ -2,6 +2,8 @@
 
 const R = require('ramda')
 const Lecture = require('../database/models/lecture')
+const User = require('../database/models/user')
+const userRepository = require('./user')
 const { knex } = require('../database')
 
 const paginate = (page, perPage) => Lecture
@@ -11,38 +13,43 @@ const paginate = (page, perPage) => Lecture
 
 const getById = id => Lecture
   .query()
-  .where('id', id)
-  .first()
+  .findById(id)
 
 const getUserLectures = async (userId, lecturesIds) => {
-  if (lecturesIds.length === 0) {
-    return []
-  }
-  const { rows } = await knex.raw(`
-  SELECT lecture_id, assignment_done AS done
-  FROM user_lectures
-  WHERE user_id = ? AND lecture_id IN (??)`, [userId, lecturesIds])
-  return R.indexBy(R.prop('lecture_id'), rows)
+  const [user] = await User
+    .query()
+    .where('id', userId)
+    .eager('lectures')
+    .modifyEager('lectures', builder => {
+      builder.whereIn('lecture_id', lecturesIds)
+    })
+  return R.indexBy(R.prop('id'), user.lectures)
 }
 
 const updateAttendance = async (lectureId, attends, userId) => {
+  const user = await userRepository.getById(userId)
   if (attends) {
-    await knex.raw(`
-    INSERT INTO user_lectures VALUES (?,?) ON CONFLICT DO NOTHING
-  `, [userId, lectureId])
+    const relationExists = (await user
+      .$relatedQuery('lectures')
+      .where('lecture_id', lectureId)).length > 0
+    if (!relationExists) {
+      await user.$relatedQuery('lectures').relate(lectureId)
+    }
   } else {
-    await knex.raw(`
-    DELETE FROM user_lectures WHERE user_id = ? AND lecture_id = ?
-  `, [userId, lectureId])
+    await user.$relatedQuery('lectures').unrelate().where('lecture_id', lectureId)
   }
   return attends
 }
 
 const updateAssignmentStatus = async (lectureId, done, userId) => {
-  const { rowCount } = await knex.raw(`
-    SELECT 1 FROM user_lectures WHERE lecture_id = ? AND user_id = ?
-    `, [lectureId, userId])
-  if (!rowCount) {
+  const [user] = await User
+    .query()
+    .where('id', userId)
+    .eager('lectures')
+    .modifyEager('lectures', builder => {
+      builder.where('lecture_id', lectureId)
+    })
+  if (!user.lectures.length) {
     return null
   }
   await knex.raw(`
@@ -51,25 +58,25 @@ const updateAssignmentStatus = async (lectureId, done, userId) => {
   return done
 }
 
-const getTotalLectures = async () => {
-  const { rows } = await knex.raw(`
-    SELECT COUNT(*) count FROM lectures
-   `)
-  return rows[0].count
-}
+const getTotalLectures = async () => (await Lecture.query().count().first()).count
 
 const getAttendedLecturesCount = async userId => {
-  const { rowCount } = await knex.raw(`
-    SELECT 1 FROM user_lectures WHERE user_id = ?
-   `, [userId])
-  return rowCount
+  const [user] = await User
+    .query()
+    .where('id', userId)
+    .eager('lectures')
+  return user.lectures.length
 }
 
 const getAssignmentsCount = async userId => {
-  const { rowCount } = await knex.raw(`
-    SELECT 1 FROM user_lectures WHERE user_id = ? AND assignment_done = true
-   `, [userId])
-  return rowCount
+  const [user] = await User
+    .query()
+    .where('id', userId)
+    .eager('lectures')
+    .modifyEager('lectures', builder => {
+      builder.where('assignment_done', true)
+    })
+  return user.lectures.length
 }
 
 module.exports = {

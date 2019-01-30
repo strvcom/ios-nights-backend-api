@@ -31,9 +31,9 @@ const register = async input => {
       picture: uploadedPicture.url,
       pictureKey: uploadedPicture.key,
     },
-    tokenInfo: security.generateAccessToken(user),
+    tokenInfo: security.generateAccessToken(user.id),
   }
-  await userRepository.updatePicture(user, uploadedPicture)
+  await userRepository.updatePicture(user.id, uploadedPicture)
   return newUserData
 }
 
