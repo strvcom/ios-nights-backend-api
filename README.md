@@ -13,7 +13,7 @@ Api service for iOS nights workshop
 | `/register` | Register user and returns user object with token | POST | `name`, `email`, `password`, `picture` | - |
 | `/login` | Login user and returns user object with token | POST | `email`, `password` | - |
 | `/users/me` | Verify token and returns user object | GET | - | Token |
-| `/users/me/picture/signed-url` | Get signed url for picture upload | POST | `name` - filename, `type` - file mime type | - |
+| `/users/me/picture/signed-url` | Get signed url for picture upload | POST |`type` - picture mime | - |
 | `/users/me/picture` | Update user's profile picture | PATCH | `picture` | Token |
 | `/lectures`   | Return list of lectures | GET | `?page`, `?perPage` - pagination | Token | 
 | `/lectures/:id` | Return detail of lecture |   GET | `id` - ID of lecture | Token |
