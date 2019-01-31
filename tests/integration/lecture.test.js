@@ -26,7 +26,7 @@ describe('Lectures', () => {
         .get('/lectures')
         .set('Authorization', userToken)
         .expect(200)
-      expect(body.results).toEqual(data.lecturesList)
+      expect(body.lectures).toEqual(data.lecturesList)
       expect(body.total).toEqual(2)
       expect(body.page).toEqual(1)
     })

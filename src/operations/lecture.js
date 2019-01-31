@@ -32,7 +32,7 @@ const getList = async (userId, { page = 1, perPage = 20 }) => {
   const { results, total } = await lectureRepository.paginate(page, perPage)
   const lectures = await getLecturesWithUserStats(results, userId)
   return {
-    results: lectures,
+    lectures,
     total,
     page,
     perPage,

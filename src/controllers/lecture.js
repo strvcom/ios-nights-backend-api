@@ -7,7 +7,7 @@ const userValidation = require('../validation/user')
 
 const list = async ctx => {
   const page = parseInt(ctx.request.query.page || 1)
-  const perPage = parseInt(ctx.request.query.per_page || config.pagination.perPage)
+  const perPage = parseInt(ctx.request.query.perPage || config.pagination.perPage)
   ctx.body = await lectureOperations.getList(ctx.user.id, { page, perPage })
 }
 

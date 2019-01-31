@@ -15,7 +15,7 @@ Api service for iOS nights workshop
 | `/users/me` | Verify token and returns user object | GET | - | Token |
 | `/users/me/picture/signed-url` | Get signed url for picture upload | POST | `name` - filename, `type` - file mime type | - |
 | `/users/me/picture` | Update user's profile picture | PATCH | `picture` | Token |
-| `/lectures`   | Return list of lectures | GET | `?page`, `?per_page` - pagination | Token | 
+| `/lectures`   | Return list of lectures | GET | `?page`, `?perPage` - pagination | Token | 
 | `/lectures/:id` | Return detail of lecture |   GET | `id` - ID of lecture | Token |
 | `/lectures/:id/attendance` | Update user's lecture attendance | PATCH | `attends` - `true/false` | Token |
 | `/lectures/:id/assignment` | Update users' lecture assignment status | PATCH | `done` - `true/false` | Token |
