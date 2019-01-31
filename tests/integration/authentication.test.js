@@ -14,6 +14,7 @@ describe('POST /login', () => {
       .expect(200)
     expect(Object.keys(body)).toEqual(expect.arrayContaining([
       'user',
+      'lecturesStatistics',
       'tokenInfo',
     ]))
     // validate accessToken

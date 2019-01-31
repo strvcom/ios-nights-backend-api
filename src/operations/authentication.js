@@ -3,6 +3,7 @@
 const userRepository = require('../repositories/user')
 const errors = require('../utils/errors')
 const security = require('../utils/security')
+const userOperations = require('./user')
 
 const login = async input => {
   // find user
@@ -16,7 +17,7 @@ const login = async input => {
     throw new errors.UnauthorizedError('Incorrect credentials')
   }
   return {
-    user,
+    ...await userOperations.getUserWithStatistics(user.id),
     tokenInfo: await security.generateAccessToken(user.id),
   }
 }

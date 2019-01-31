@@ -38,9 +38,15 @@ describe('PATCH /users/me', () => {
       .set('Authorization', userToken)
       .send()
       .expect(200)
-    expect(body.id).toEqual(data.user.id)
-    expect(body.email).toEqual(data.user.email)
-    expect(body.name).toEqual(data.user.name)
+
+    expect(Object.keys(body)).toEqual(expect.arrayContaining([
+      'user',
+      'lecturesStatistics',
+    ]))
+
+    expect(body.user.id).toEqual(data.user.id)
+    expect(body.user.email).toEqual(data.user.email)
+    expect(body.user.name).toEqual(data.user.name)
     expect(body.password).not.toBeDefined()
     expect(Object.keys(body.lecturesStatistics)).toEqual(expect.arrayContaining([
       'total',

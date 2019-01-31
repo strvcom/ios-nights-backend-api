@@ -12,10 +12,7 @@ const register = async ctx => {
 }
 
 const user = async ctx => {
-  ctx.body = {
-    ...ctx.user.toJSON(),
-    lecturesStatistics: await operations.loadUserLecturesStatistics(ctx.user.id),
-  }
+  ctx.body = await operations.getUserWithStatistics(ctx.user.id)
 }
 
 const updatePicture = async ctx => {
