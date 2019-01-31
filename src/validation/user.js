@@ -7,10 +7,10 @@ const attendanceValidationRules = Joi.object().keys({
 })
 
 const assignmentValidationRules = Joi.object().keys({
-  done: Joi.boolean().required(),
+  assignmentDone: Joi.boolean().required(),
 })
 
-const validationRules = Joi.object().keys({
+const registerValidationRules = Joi.object().keys({
   name: Joi.string()
     .min(3)
     .max(30)
@@ -34,7 +34,7 @@ const loginRules = Joi.object().keys({
 module.exports = {
   attendanceValidationRules,
   assignmentValidationRules,
-  validationRules,
+  registerValidationRules,
   updateValidationRules,
   loginRules,
 }

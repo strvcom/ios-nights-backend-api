@@ -46,13 +46,16 @@ const getDetail = async (userId, id) => {
 
 const updateAttendance = async ({ lectureId, attended }, userId) => {
   await getLecture(lectureId)
-  await lectureRepository.updateAttendance(lectureId, attended, userId)
+  await lectureRepository.updateAttendance({ lectureId, attended }, userId)
   return getDetail(userId, lectureId)
 }
 
-const updateAssignmentStatus = async ({ lectureId, done }, userId) => {
+const updateAssignmentStatus = async ({ lectureId, assignmentDone }, userId) => {
   await getLecture(lectureId)
-  const status = await lectureRepository.updateAssignmentStatus(lectureId, done, userId)
+  const status = await lectureRepository.updateAssignmentStatus(
+    { lectureId, assignmentDone },
+    userId,
+  )
   if (status === null) {
     throw new errors.BadRequestError('User doesn\'t attend this lecture')
   }

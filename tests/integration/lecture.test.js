@@ -64,13 +64,13 @@ describe('PATCH /lectures/:id/attended', () => {
   })
 })
 
-describe('PATCH /lectures/:id/assignment', () => {
+describe('PATCH /lectures/:id/assignment-done', () => {
   test('It should update user\'s lecture assignment status', async () => {
     const { body } = await request(app)
-      .patch('/lectures/1/assignment')
+      .patch('/lectures/1/assignment-done')
       .set('Authorization', userToken)
       .send({
-        done: true,
+        assignmentDone: true,
       })
       .expect(200)
     expect(body.assignmentDone).toEqual(true)

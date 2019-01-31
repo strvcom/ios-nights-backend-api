@@ -26,7 +26,7 @@ const getUserLectures = async (userId, lecturesIds) => {
   return R.indexBy(R.prop('id'), user.lectures)
 }
 
-const updateAttendance = async (lectureId, attended, userId) => {
+const updateAttendance = async ({ lectureId, attended }, userId) => {
   const user = await userRepository.getById(userId)
   if (attended) {
     const relationExists = (await user
@@ -41,7 +41,7 @@ const updateAttendance = async (lectureId, attended, userId) => {
   return attended
 }
 
-const updateAssignmentStatus = async (lectureId, done, userId) => {
+const updateAssignmentStatus = async ({ lectureId, assignmentDone }, userId) => {
   const [user] = await User
     .query()
     .where('id', userId)
@@ -54,8 +54,8 @@ const updateAssignmentStatus = async (lectureId, done, userId) => {
   }
   await knex.raw(`
     UPDATE user_lectures SET assignment_done = ? WHERE lecture_id = ? AND user_id = ?
-  `, [done, lectureId, userId])
-  return done
+  `, [assignmentDone, lectureId, userId])
+  return assignmentDone
 }
 
 const getTotalLectures = async () => (await Lecture.query().count().first()).count

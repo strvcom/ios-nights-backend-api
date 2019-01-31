@@ -6,7 +6,7 @@ const userValidation = require('../validation/user')
 const storageValidation = require('../validation/storage')
 
 const register = async ctx => {
-  validate(ctx.request.body, userValidation.validationRules)
+  validate(ctx.request.body, userValidation.registerValidationRules)
   ctx.body = await operations.register(ctx.request.body)
   ctx.status = 201
 }

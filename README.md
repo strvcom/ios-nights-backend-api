@@ -18,7 +18,7 @@ Api service for iOS nights workshop
 | `/lectures`   | Return list of lectures | GET | `?page`, `?perPage` - pagination | Token | 
 | `/lectures/:id` | Return detail of lecture |   GET | `id` - ID of lecture | Token |
 | `/lectures/:id/attended` | Update user's lecture attendance | PATCH | `attended` - `true/false` | Token |
-| `/lectures/:id/assignment` | Update users' lecture assignment status | PATCH | `done` - `true/false` | Token |
+| `/lectures/:id/assignment-done` | Update users' lecture assignment status | PATCH | `assignmentDone` - `true/false` | Token |
 
 #### Authentication
 For accessing protected endpoints you need to provide `Authorization` header

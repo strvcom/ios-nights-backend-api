@@ -25,9 +25,12 @@ const updateAttendance = async ctx => {
 
 const updateAssignment = async ctx => {
   validate(ctx.request.body, userValidation.assignmentValidationRules)
-  const done = Boolean(ctx.request.body.done)
+  const { assignmentDone } = ctx.request.body
   const lectureId = parseInt(ctx.params.id)
-  ctx.body = await lectureOperations.updateAssignmentStatus({ lectureId, done }, ctx.user.id)
+  ctx.body = await lectureOperations.updateAssignmentStatus(
+    { lectureId, assignmentDone },
+    ctx.user.id,
+  )
 }
 
 module.exports = {
