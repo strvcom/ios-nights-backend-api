@@ -1,7 +1,7 @@
 'use strict'
 
 // Data in DB
-const lecturesDB = [
+const dbLectures = [
   {
     id: 1,
     name: 'Swift I',
@@ -19,6 +19,8 @@ const lecturesDB = [
     detail_picture: 'https://picsum.photos/200/300?image=4',
   },
 ]
+
+const dbUserLecture = [1, 1] // [user_id, lecture_id]
 
 // Expected data in list resposne
 const lecturesList = [
@@ -38,7 +40,16 @@ const lecturesList = [
   },
 ]
 
-const lectureDetail = { ...lecturesList[0] }
+const lectureDetail = {
+  id: 1,
+  name: 'Swift I',
+  description: '- Basic data types, collection types - Struct, class, enum - Functions, closures - Access control - References, ARC - Operators, common methods - Extenstions, protocols, delegates',
+  assignment: 'lorem ipsum dolor sit amet',
+  previewPicture: 'https://picsum.photos/200/300?image=0',
+  detailPicture: 'https://picsum.photos/200/300?image=1',
+  attended: false,
+  assignmentDone: false,
+}
 
 const dbRowUser = [
   'John Doe',
@@ -75,7 +86,7 @@ const user = {
 }
 
 module.exports = {
-  lecturesDB,
+  dbLectures,
   lecturesList,
   lectureDetail,
   dbRowUser,
@@ -84,4 +95,5 @@ module.exports = {
   uploadedPicture,
   registerUser,
   user,
+  dbUserLecture,
 }

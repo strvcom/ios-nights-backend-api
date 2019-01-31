@@ -1,6 +1,7 @@
 'use strict'
 
 const request = require('supertest-koa-agent')
+const R = require('ramda')
 const app = require('../../src/app')
 const data = require('../data')
 const { knex } = require('../../src/database')
@@ -38,7 +39,7 @@ describe('Lectures', () => {
         .get('/lectures/1')
         .set('Authorization', userToken)
         .expect(200)
-      expect(body).toMatchObject(data.lectureDetail)
+      expect(R.omit(['createdAt', 'updatedAt'], body)).toEqual(data.lectureDetail)
     })
 
     test('It should return 404 when lecture doesn\'t exist', async () => {
@@ -50,13 +51,13 @@ describe('Lectures', () => {
   })
 })
 
-describe('PATCH /lectures/:id/attendance', () => {
+describe('PATCH /lectures/:id/attended', () => {
   test('It should update user\'s lecture attendance', async () => {
     const { body } = await request(app)
-      .patch('/lectures/1/attendance')
+      .patch('/lectures/1/attended')
       .set('Authorization', userToken)
       .send({
-        attends: true,
+        attended: true,
       })
       .expect(200)
     expect(body.attended).toEqual(true)
@@ -65,13 +66,6 @@ describe('PATCH /lectures/:id/attendance', () => {
 
 describe('PATCH /lectures/:id/assignment', () => {
   test('It should update user\'s lecture assignment status', async () => {
-    await request(app)
-      .patch('/lectures/1/attendance')
-      .set('Authorization', userToken)
-      .send({
-        attends: true,
-      })
-      .expect(200)
     const { body } = await request(app)
       .patch('/lectures/1/assignment')
       .set('Authorization', userToken)

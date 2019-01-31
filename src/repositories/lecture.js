@@ -26,9 +26,9 @@ const getUserLectures = async (userId, lecturesIds) => {
   return R.indexBy(R.prop('id'), user.lectures)
 }
 
-const updateAttendance = async (lectureId, attends, userId) => {
+const updateAttendance = async (lectureId, attended, userId) => {
   const user = await userRepository.getById(userId)
-  if (attends) {
+  if (attended) {
     const relationExists = (await user
       .$relatedQuery('lectures')
       .where('lecture_id', lectureId)).length > 0
@@ -38,7 +38,7 @@ const updateAttendance = async (lectureId, attends, userId) => {
   } else {
     await user.$relatedQuery('lectures').unrelate().where('lecture_id', lectureId)
   }
-  return attends
+  return attended
 }
 
 const updateAssignmentStatus = async (lectureId, done, userId) => {

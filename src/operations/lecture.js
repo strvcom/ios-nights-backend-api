@@ -44,9 +44,9 @@ const getDetail = async (userId, id) => {
   return (await getLecturesWithUserStats([lecture], userId))[0]
 }
 
-const updateAttendance = async ({ lectureId, attends }, userId) => {
+const updateAttendance = async ({ lectureId, attended }, userId) => {
   await getLecture(lectureId)
-  await lectureRepository.updateAttendance(lectureId, attends, userId)
+  await lectureRepository.updateAttendance(lectureId, attended, userId)
   return getDetail(userId, lectureId)
 }
 

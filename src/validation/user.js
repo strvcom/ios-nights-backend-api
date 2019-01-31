@@ -3,7 +3,7 @@
 const Joi = require('joi')
 
 const attendanceValidationRules = Joi.object().keys({
-  attends: Joi.boolean().required(),
+  attended: Joi.boolean().required(),
 })
 
 const assignmentValidationRules = Joi.object().keys({

@@ -22,7 +22,7 @@ router.post('/login', authController.login)
 // Lectures
 router.get('/lectures', authenticated, lectureController.list)
 router.get('/lectures/:id', authenticated, lectureController.detail)
-router.patch('/lectures/:id/attendance', authenticated, lectureController.updateAttendance)
+router.patch('/lectures/:id/attended', authenticated, lectureController.updateAttendance)
 router.patch('/lectures/:id/assignment', authenticated, lectureController.updateAssignment)
 
 // Users

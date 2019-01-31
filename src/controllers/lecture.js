@@ -18,9 +18,9 @@ const detail = async ctx => {
 
 const updateAttendance = async ctx => {
   validate(ctx.request.body, userValidation.attendanceValidationRules)
-  const attends = Boolean(ctx.request.body.attends)
+  const { attended } = ctx.request.body
   const lectureId = parseInt(ctx.params.id)
-  ctx.body = await lectureOperations.updateAttendance({ lectureId, attends }, ctx.user.id)
+  ctx.body = await lectureOperations.updateAttendance({ lectureId, attended }, ctx.user.id)
 }
 
 const updateAssignment = async ctx => {
