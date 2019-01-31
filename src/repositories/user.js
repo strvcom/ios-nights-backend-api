@@ -13,14 +13,14 @@ const getByEmail = email => User
 
 const createUser = userData => User.query().insert(userData)
 
-const updatePicture = (userId, picture) => User
+const updatePictureUrl = (userId, pictureUrl) => User
   .query()
-  .patch({ picture })
+  .patch({ pictureUrl })
   .where('id', userId)
 
 module.exports = {
   getById,
   getByEmail,
   createUser,
-  updatePicture,
+  updatePictureUrl,
 }

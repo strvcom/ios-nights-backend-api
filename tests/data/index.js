@@ -66,7 +66,7 @@ const loginData = {
 }
 
 const uploadedPicture = {
-  picture: 'www.amazonaws.com/users/test-file.jpg',
+  pictureUrl: 'www.amazonaws.com/users/test-file.jpg',
 }
 
 const user = {

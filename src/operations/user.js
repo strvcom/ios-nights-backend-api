@@ -11,7 +11,7 @@ const register = async input => {
     name: input.name,
     email: input.email.toLowerCase(),
     password: await security.hash(input.password),
-    picture: input.picture || '',
+    pictureUrl: input.updatePictureUrl || null,
   }
   // check if users exists
   const exists = await userRepository.getByEmail(userData.email)
@@ -43,8 +43,8 @@ const loadUserLecturesStatistics = async userId => {
   }
 }
 
-const updateUserPicture = async ({ picture }, userId) => {
-  await userRepository.updatePicture(userId, picture)
+const updateUserPicture = async ({ pictureUrl }, userId) => {
+  await userRepository.updatePictureUrl(userId, pictureUrl)
   return userRepository.getById(userId)
 }
 

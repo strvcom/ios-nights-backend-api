@@ -15,14 +15,20 @@ const validationRules = Joi.object().keys({
     .min(3)
     .max(30)
     .required(),
-  email: Joi.string().email(),
+  email: Joi.string().email().required(),
   password: Joi.string().min(8).max(20)
     .required(),
-  picture: Joi.string().max(300),
+  pictureUrl: Joi.string().max(300),
 })
 
 const updateValidationRules = Joi.object().keys({
-  picture: Joi.string().max(300).required(),
+  pictureUrl: Joi.string().max(300).required(),
+})
+
+const loginRules = Joi.object().keys({
+  email: Joi.string().email().required(),
+  password: Joi.string().min(8).max(20)
+    .required(),
 })
 
 module.exports = {
@@ -30,4 +36,5 @@ module.exports = {
   assignmentValidationRules,
   validationRules,
   updateValidationRules,
+  loginRules,
 }
