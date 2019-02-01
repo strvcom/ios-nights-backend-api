@@ -5,7 +5,7 @@ const lectureRepository = require('../repositories/lecture')
 const errors = require('../utils/errors')
 const security = require('../utils/security')
 const storage = require('../services/storage')
-const { generateFilenameForMimeType } = require('../utils/storage')
+const { generatePictureNameFromMime } = require('../utils/storage')
 
 const loadUserLecturesStatistics = async userId => {
   const [
@@ -55,7 +55,7 @@ const updateUserPicture = async ({ pictureUrl }, userId) => {
 }
 
 const generatePictureUploadUrl = ({ type }) => storage.getS3SignUrl({
-  name: generateFilenameForMimeType(type),
+  name: generatePictureNameFromMime(type),
   type,
   directory: 'users',
 })
