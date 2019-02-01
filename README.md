@@ -8,17 +8,26 @@ Api service for iOS nights workshop
 
 ### Endpoints
 
-| Endpoint | Description | Method | Params | Protected |
-| :---------- |:------------| :-----:| :---- | :----: |
-| `/register` | Register user and returns user object with token | POST | `name`, `email`, `password`, `pictureUrl` | - |
-| `/login` | Login user and returns user object with token | POST | `email`, `password` | - |
-| `/users/me` | Verify token and returns user object | GET | - | Token |
-| `/users/me/picture/signed-url` | Get signed url for picture upload | POST |`type` - picture mime | - |
-| `/users/me/picture` | Update user's profile picture | PATCH | `pictureUrl` | Token |
-| `/lectures`   | Return list of lectures | GET | `?page`, `?perPage` - pagination | Token | 
-| `/lectures/:id` | Return detail of lecture | GET | `id` - ID of lecture | Token |
-| `/lectures/:id/attended` | Update user's lecture attendance | PATCH | `attended` - `true/false` | Token |
-| `/lectures/:id/assignment-done` | Update users' lecture assignment status | PATCH | `assignmentDone` - `true/false` | Token |
+##### Authentication
+| Method | Endpoint | Description | Params | Protected |
+| :--- |:---------- |:------------| :----- | :--: |
+| POST |`/register` | Register user and returns user object with token | `name`, `email`, `password`, `pictureUrl` | - |
+| POST | `/login`   | Login user and returns user object with token    | `email`, `password` | - |
+
+##### User
+| Method | Endpoint | Description | Params | Protected |
+| :--- |:---------- |:------------| :----- | :--: |
+| GET   | `/users/me` | Verify token and returns user object | - | Token |
+| POST  | `/users/me/picture/signed-url` | Get signed url for picture upload |`type` (MIME type) | - |
+| PATCH | `/users/me/picture` | Update user's profile picture | `pictureUrl` | Token |
+
+##### Lectures
+| Method | Endpoint | Description | Params | Protected |
+| :--- |:---------- |:------------| :----- | :--: |
+| GET | `/lectures`   | Return list of lectures | `?page`, `?perPage` - pagination | Token | 
+| GET |`/lectures/:id` | Return detail of lecture | `id` - ID of lecture | Token |
+| PATCH | `/lectures/:id/attended` | Update user's lecture attendance | `attended` - `true/false` | Token |
+| PATCH | `/lectures/:id/assignment-done` | Update users' lecture assignment status | `assignmentDone` - `true/false` | Token |
 
 #### Authentication
 For accessing protected endpoints you need to provide `Authorization` header
