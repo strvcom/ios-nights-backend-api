@@ -10,13 +10,13 @@ Api service for iOS nights workshop
 
 | Endpoint | Description | Method | Params | Protected |
 | :---------- |:------------| :-----:| :---- | :----: |
-| `/register` | Register user and returns user object with token | POST | `name`, `email`, `password`, `picture` | - |
+| `/register` | Register user and returns user object with token | POST | `name`, `email`, `password`, `pictureUrl` | - |
 | `/login` | Login user and returns user object with token | POST | `email`, `password` | - |
 | `/users/me` | Verify token and returns user object | GET | - | Token |
 | `/users/me/picture/signed-url` | Get signed url for picture upload | POST |`type` - picture mime | - |
-| `/users/me/picture` | Update user's profile picture | PATCH | `picture` | Token |
+| `/users/me/picture` | Update user's profile picture | PATCH | `pictureUrl` | Token |
 | `/lectures`   | Return list of lectures | GET | `?page`, `?perPage` - pagination | Token | 
-| `/lectures/:id` | Return detail of lecture |   GET | `id` - ID of lecture | Token |
+| `/lectures/:id` | Return detail of lecture | GET | `id` - ID of lecture | Token |
 | `/lectures/:id/attended` | Update user's lecture attendance | PATCH | `attended` - `true/false` | Token |
 | `/lectures/:id/assignment-done` | Update users' lecture assignment status | PATCH | `assignmentDone` - `true/false` | Token |
 
