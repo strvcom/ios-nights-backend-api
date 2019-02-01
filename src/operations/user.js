@@ -51,7 +51,7 @@ const register = async input => {
 
 const updateUserPicture = async ({ pictureUrl }, userId) => {
   await userRepository.updatePictureUrl(userId, pictureUrl)
-  return userRepository.getById(userId)
+  return getUserWithStatistics(userId)
 }
 
 const generatePictureUploadUrl = ({ type }) => storage.getS3SignUrl({

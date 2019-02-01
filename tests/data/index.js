@@ -7,16 +7,16 @@ const dbLectures = [
     name: 'Swift I',
     description: '- Basic data types, collection types - Struct, class, enum - Functions, closures - Access control - References, ARC - Operators, common methods - Extenstions, protocols, delegates',
     assignment: 'lorem ipsum dolor sit amet',
-    preview_picture: 'https://picsum.photos/200/300?image=0',
-    detail_picture: 'https://picsum.photos/200/300?image=1',
+    preview_picture_url: 'https://picsum.photos/200/300?image=0',
+    detail_picture_url: 'https://picsum.photos/200/300?image=1',
   },
   {
     id: 2,
     name: 'Xcode',
     description: '- Brief Git intro - Targets, configurations - Schemes - Build process - Certificates - Dependency Management - Project structure - MVC',
     assignment: 'lorem ipsum dolor sit amet',
-    preview_picture: 'https://picsum.photos/200/300?image=3',
-    detail_picture: 'https://picsum.photos/200/300?image=4',
+    preview_picture_url: 'https://picsum.photos/200/300?image=3',
+    detail_picture_url: 'https://picsum.photos/200/300?image=4',
   },
 ]
 
@@ -27,14 +27,14 @@ const lecturesList = [
   {
     id: 1,
     name: 'Swift I',
-    previewPicture: 'https://picsum.photos/200/300?image=0',
+    previewPictureUrl: 'https://picsum.photos/200/300?image=0',
     assignmentDone: false,
     attended: false,
   },
   {
     id: 2,
     name: 'Xcode',
-    previewPicture: 'https://picsum.photos/200/300?image=3',
+    previewPictureUrl: 'https://picsum.photos/200/300?image=3',
     assignmentDone: false,
     attended: false,
   },
@@ -45,8 +45,8 @@ const lectureDetail = {
   name: 'Swift I',
   description: '- Basic data types, collection types - Struct, class, enum - Functions, closures - Access control - References, ARC - Operators, common methods - Extenstions, protocols, delegates',
   assignment: 'lorem ipsum dolor sit amet',
-  previewPicture: 'https://picsum.photos/200/300?image=0',
-  detailPicture: 'https://picsum.photos/200/300?image=1',
+  previewPictureUrl: 'https://picsum.photos/200/300?image=0',
+  detailPictureUrl: 'https://picsum.photos/200/300?image=1',
   attended: false,
   assignmentDone: false,
 }

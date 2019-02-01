@@ -8,7 +8,7 @@ const userRepository = require('./user')
 
 const paginate = (page, perPage) => Lecture
   .query()
-  .pick(['id', 'name', 'previewPicture'])
+  .pick(['id', 'name', 'previewPictureUrl'])
   .page(page - 1, perPage)
 
 const getById = id => Lecture
