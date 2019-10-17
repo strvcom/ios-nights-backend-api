@@ -5,6 +5,7 @@ const config = require('../config')
 const lectureController = require('../controllers/lecture')
 const authController = require('../controllers/authentication')
 const userController = require('../controllers/user')
+const randomController = require('../controllers/random')
 const { authenticated } = require('../middlewares/security')
 
 const router = new Router()
@@ -30,5 +31,9 @@ router.post('/register', userController.register)
 router.get('/users/me', authenticated, userController.user)
 router.patch('/users/me/picture', authenticated, userController.updatePicture)
 router.post('/users/me/picture/signed-url', userController.getPictureUploadUrl)
+
+// Random
+router.get('/randomInt', randomController.randomInt)
+router.post('/randomInt', randomController.updateRandomInt)
 
 module.exports = router.routes()
