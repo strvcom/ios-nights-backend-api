@@ -1,42 +1,49 @@
+---
 sudo: required
 dist: trusty
 language: node_js
 node_js:
-- 10.15.0
+  - 10.15.0
+
 branches:
   only:
-  - master
+    - master
+
 cache:
   directories:
-  - node_modules
+    - node_modules
+
 services:
-- docker
+  - docker
+
 env:
   global:
-  - NODE_ENV=test
+    - NODE_ENV=test
+
 install:
-- npm install
+  - npm install
+
 before_script:
-- sudo service postgresql stop
-- docker ps
-- npm run infra:start
-- sleep 5
-- npm run db:migrate
+  - sudo service postgresql stop
+  - docker ps
+  - npm run infra:start
+  - sleep 5
+  - npm run db:migrate
+
 script:
-- npm run test:coverage
+  - npm run test:coverage
+
 deploy:
-  matrix:
   - provider: heroku
     skip_cleanup: true
     api_key:
-      secure: FHzkqlmxoUs/nF0OCBLxNXBDdgX9EiRvWdkVe7Nt6fStFFSEyp+qd/fDSceBxNcWbPFlz+A4ldkx+ARErHik0kTFNn7sVn0rao3HASfT4FEEcy65LGSs8wa8dNZ8d7u4dP+HdF8B+nefUvMoOxL7VJODoCMBnO9ABG2TL8b/qX6XUkqC/p5tLf7S5O12kBslyszG7pvESACwXwSLb1k8dwrm7r6N/iIH+Pyb21liye2iVJWCqvHhQ6P6XQGw3utlD0BTyTE0rpCbHtB8cPFmc4q23XfFXJyfgiVBTmhH0tw3ubtbRGWd2tlPkbAeJUUIUZIjV2N5zTvObg9517Yusa6Hk1rIuTxVexUrFKTgE/TKjQooy8lOPwED8FzcRgebF/ZJ+o9N9B0YfEHuPCkv/SMYMQIcyuUhEq8RT0W6pdjSuK5O6PXugdOb0PSzXsh9yTNqCJfao6CZvmCHaPOqH/lJ+bEDr7Y9jxIyhvWPNmLwwF7Jncrf5W3s4e0REtvWoVI7nhJfgOxBIbJqXC95OH4v3TDT/tdmN/Gvev+U4b00yJ5Fd6yTX6ZWY5jl3tmyOzReWxobICOcWMWFU22mjRs/01qu5FD8dd+2LOfHjagHwoWM2L96kEWkPYHFsqCnzjSbYYz5cmCIA4QofvZRGk/1vnA2WUDGBKq0NEuBuOk=
+      secure: Xw/lofqP0QSlhQJeSqrOH4kvv146pyOtLN+RirhF9I5pnyOQeRg1EndTbFdg9577z3QbI/RsmJp2gmyn7coUsMRkg7CQXQjxmcfsDt8eUoHiIjpqeTONg7LBAWajxWnKPEPSG21+pI86lkmAyOnfoq9P09j/DXWrLyOI2rtwTvnADE3xAfo8uKU0NDFQBU4F8foyawJdn5Bkqeqo97+6pcunKc4hnZi7dgTj772pkhL/OEnYs0cRaHpIp2rjAoDsXeewtf1AC0exxRjprMvYV4F8YnvT8auvEPaH78eQ/sEZw9NfZDRSno20Kyz2u/vY2S5y9jLXMbjhbauHwtGrGqi9zp+uKtnGg7SVkhbVy6rP5ETC7Fv9Uxvgv8fMUri1jJBZhraYaXcwgrrJyP5P5eR8BIm1u5DAocSqfg0aaavANRLL69Mr9E2AjQ2tXh5iG1w6qvyL68AbQl3vBrcg5VevlOa5tKJ6SCxBnsewyEVYCHtfcLmqE20I8s43gnoJG1+cZ+1lgMyzvBQzVUo1TMUuBcv6NHBIII4X+raKqkSBUaLMkIqZxkdn0Xl5ACrYOYeU+EJvvXXKv/suMwOsnKCo0OgszrI3v5nKlShZndKiwHKOsOE1EPYA9ByCgjFpg7dnfROoTDm71uHOtpXQuBOqFF7qwQqdK+eT6FDeAsA=
     app: ios-nights
     strategy: git
     on:
       branch:
-      - master
+        - master
       repo: strvcom/ios-nights-backend-api
-  api_key:
-    secure: Xw/lofqP0QSlhQJeSqrOH4kvv146pyOtLN+RirhF9I5pnyOQeRg1EndTbFdg9577z3QbI/RsmJp2gmyn7coUsMRkg7CQXQjxmcfsDt8eUoHiIjpqeTONg7LBAWajxWnKPEPSG21+pI86lkmAyOnfoq9P09j/DXWrLyOI2rtwTvnADE3xAfo8uKU0NDFQBU4F8foyawJdn5Bkqeqo97+6pcunKc4hnZi7dgTj772pkhL/OEnYs0cRaHpIp2rjAoDsXeewtf1AC0exxRjprMvYV4F8YnvT8auvEPaH78eQ/sEZw9NfZDRSno20Kyz2u/vY2S5y9jLXMbjhbauHwtGrGqi9zp+uKtnGg7SVkhbVy6rP5ETC7Fv9Uxvgv8fMUri1jJBZhraYaXcwgrrJyP5P5eR8BIm1u5DAocSqfg0aaavANRLL69Mr9E2AjQ2tXh5iG1w6qvyL68AbQl3vBrcg5VevlOa5tKJ6SCxBnsewyEVYCHtfcLmqE20I8s43gnoJG1+cZ+1lgMyzvBQzVUo1TMUuBcv6NHBIII4X+raKqkSBUaLMkIqZxkdn0Xl5ACrYOYeU+EJvvXXKv/suMwOsnKCo0OgszrI3v5nKlShZndKiwHKOsOE1EPYA9ByCgjFpg7dnfROoTDm71uHOtpXQuBOqFF7qwQqdK+eT6FDeAsA=
+
 notifications:
   email: false
