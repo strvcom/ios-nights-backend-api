@@ -13,12 +13,8 @@ module.exports = env => ({
     port: process.env.PORT || 3000,
   },
   database: {
-    client: 'pg',
+    client: 'postgresql',
     connection: process.env.DATABASE_URL,
-    pool: {
-      min: parseInt(process.env.DATABASE_POOL_MIN) || 0,
-      max: parseInt(process.env.DATABASE_POOL_MAX) || 5,
-    },
   },
   logger: {
     enabled: true,

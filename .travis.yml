@@ -3,7 +3,7 @@ sudo: required
 dist: trusty
 language: node_js
 node_js:
-  - 10.15.0
+  - 12.12.0
 
 branches:
   only:
@@ -32,18 +32,6 @@ before_script:
 
 script:
   - npm run test:coverage
-
-deploy:
-  - provider: heroku
-    skip_cleanup: true
-    api_key:
-      secure: Xw/lofqP0QSlhQJeSqrOH4kvv146pyOtLN+RirhF9I5pnyOQeRg1EndTbFdg9577z3QbI/RsmJp2gmyn7coUsMRkg7CQXQjxmcfsDt8eUoHiIjpqeTONg7LBAWajxWnKPEPSG21+pI86lkmAyOnfoq9P09j/DXWrLyOI2rtwTvnADE3xAfo8uKU0NDFQBU4F8foyawJdn5Bkqeqo97+6pcunKc4hnZi7dgTj772pkhL/OEnYs0cRaHpIp2rjAoDsXeewtf1AC0exxRjprMvYV4F8YnvT8auvEPaH78eQ/sEZw9NfZDRSno20Kyz2u/vY2S5y9jLXMbjhbauHwtGrGqi9zp+uKtnGg7SVkhbVy6rP5ETC7Fv9Uxvgv8fMUri1jJBZhraYaXcwgrrJyP5P5eR8BIm1u5DAocSqfg0aaavANRLL69Mr9E2AjQ2tXh5iG1w6qvyL68AbQl3vBrcg5VevlOa5tKJ6SCxBnsewyEVYCHtfcLmqE20I8s43gnoJG1+cZ+1lgMyzvBQzVUo1TMUuBcv6NHBIII4X+raKqkSBUaLMkIqZxkdn0Xl5ACrYOYeU+EJvvXXKv/suMwOsnKCo0OgszrI3v5nKlShZndKiwHKOsOE1EPYA9ByCgjFpg7dnfROoTDm71uHOtpXQuBOqFF7qwQqdK+eT6FDeAsA=
-    app: ios-nights
-    strategy: git
-    on:
-      branch:
-        - master
-      repo: strvcom/ios-nights-backend-api
 
 notifications:
   email: false
