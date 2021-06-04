@@ -31,7 +31,7 @@ before_script:
   - npm run db:migrate
 
 script:
-  - npm run test:coverage
+  - npm run test
 
 notifications:
   email: false
