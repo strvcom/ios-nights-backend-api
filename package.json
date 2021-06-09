@@ -7,7 +7,7 @@
     "dev": "nodemon src/index.js | pino-pretty",
     "start": "node src/index.js",
     "test": "NODE_ENV=test node tests/setup.js && NODE_ENV=test jest --verbose --forceExit",
-    "test:coverage": "yarn test --coverage",
+    "test:coverage": "npm test --coverage",
     "test:coverage:show": "open coverage/lcov-report/index.html",
     "lint": "eslint src/",
     "infra:start": "docker-compose up -d",
@@ -61,7 +61,8 @@
     "koa-router": "^7.4.0",
     "mime-types": "^2.1.21",
     "objection": "^1.5.3",
-    "pg": "^7.8.0",
+    "pg": "^8.6.0",
+    "pg-connection-string": "^2.5.0",
     "pino": "^5.10.8",
     "ramda": "^0.26.1",
     "uuid": "^3.3.2"
