@@ -69,7 +69,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn test:coverage && lint-staged"
+      "pre-commit": "npm run test:coverage && lint-staged"
     }
   },
   "lint-staged": {
